@@ -11,9 +11,9 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-   
     public function run(): void
     {
+        $this->call(PermissionSeeder::class);
         $this->call(TicketsDatabaseSeeder::class);
     }
 }
