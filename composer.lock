@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f5f2bedb0b92c8276666d83cd561fe5",
+    "content-hash": "e4794244cb1f75ca36ab6255ef8a4b9b",
     "packages": [
         {
             "name": "brick/math",
@@ -3636,6 +3636,39 @@
                 }
             ],
             "time": "2026-07-03T15:36:01+00:00"
+        },
+        {
+            "name": "support/tickets",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "layers/tickets",
+                "reference": "35ae6e06565d5dc8c48f7a0f0664ee33fc8768db"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Layers\\Tickets\\Providers\\TicketsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Layers\\Tickets\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Layers\\Tickets\\Database\\Factories\\": "database/factories/",
+                    "Layers\\Tickets\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "description": "Ticketing domain layer",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/clock",
@@ -10378,7 +10411,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "support/tickets": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
