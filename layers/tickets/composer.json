@@ -4,11 +4,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Layers\\Tickets\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
+            "Layers\\Tickets\\": "src/",
             "Layers\\Tickets\\Database\\Factories\\": "database/factories/",
             "Layers\\Tickets\\Database\\Seeders\\": "database/seeders/"
         }

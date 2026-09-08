@@ -3643,7 +3643,7 @@
             "dist": {
                 "type": "path",
                 "url": "layers/tickets",
-                "reference": "35ae6e06565d5dc8c48f7a0f0664ee33fc8768db"
+                "reference": "e0952c970e641deb1c02921e777b12a165754be1"
             },
             "type": "library",
             "extra": {
@@ -3655,11 +3655,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Layers\\Tickets\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
+                    "Layers\\Tickets\\": "src/",
                     "Layers\\Tickets\\Database\\Factories\\": "database/factories/",
                     "Layers\\Tickets\\Database\\Seeders\\": "database/seeders/"
                 }
