@@ -13,9 +13,9 @@ class TicketsDatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $requester = User::factory()->create();
-        $technician = User::factory()->create();
-        $manager = User::factory()->create();
+        $requester = User::where('name', 'Alice Requester')->first() ?? User::factory()->create();
+        $technician = User::where('name', 'Bob Technician')->first() ?? User::factory()->create();
+        $manager = User::where('name', 'Carla Manager')->first() ?? User::factory()->create();
 
         foreach (TicketStatus::cases() as $index => $status) {
             $ticket = Ticket::factory()

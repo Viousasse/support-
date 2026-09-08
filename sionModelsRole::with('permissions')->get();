@@ -1,0 +1,10 @@
+[90m= [39m[34;4mIlluminate\Support\Collection[39;24m {#9435
+    [34mall[39m: [
+      [32m"[39m[32massign tickets[39m[32m"[39m,
+      [32m"[39m[32mclose tickets[39m[32m"[39m,
+      [32m"[39m[32mcreate tickets[39m[32m"[39m,
+      [32m"[39m[32mview all tickets[39m[32m"[39m,
+      [32m"[39m[32mview assigned tickets[39m[32m"[39m,
+      [32m"[39m[32mview own tickets[39m[32m"[39m,
+    ],
+  }

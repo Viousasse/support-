@@ -12,13 +12,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Layers\Tickets\Database\Factories\TicketFactory;
 use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Enums\TicketStatus;
+use Lomkit\Access\Controls\HasControl;
 
 class Ticket extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use Prunable;
-
+    use HasControl;
     protected $fillable = [
         'requester_id',
         'assigned_technician_id',
