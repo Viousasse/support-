@@ -3,7 +3,7 @@
 namespace App\Tickets\Actions;
 
 use App\Exceptions\InvalidTicketStatusTransitionException;
-use App\Tickets\Enums\TicketStatus;
+use Layers\Tickets\Enums\TicketStatus;
 use Layers\Tickets\Models\Ticket;
 
 class CloseTicket

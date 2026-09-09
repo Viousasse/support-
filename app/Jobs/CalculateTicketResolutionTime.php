@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Layers\Tickets\Enums\TicketStatus;
 use Layers\Tickets\Models\Ticket;
 
 class CalculateTicketResolutionTime implements ShouldQueue
@@ -22,7 +23,12 @@ class CalculateTicketResolutionTime implements ShouldQueue
     {
         $ticket = Ticket::find($this->ticketId);
 
-        if (! $ticket || $ticket->status !== 'resolved' || ! $ticket->resolved_at) {
+        if (! $ticket || ! $ticket->resolved_at) {
+            return;
+        }
+
+        // On s’assure que le statut est bien Resolved
+        if ($ticket->status !== TicketStatus::Resolved) {
             return;
         }
 

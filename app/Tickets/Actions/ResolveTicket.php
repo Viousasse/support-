@@ -4,7 +4,7 @@ namespace App\Tickets\Actions;
 
 use App\Exceptions\InvalidTicketStatusTransitionException;
 use App\Jobs\CalculateTicketResolutionTime;
-use App\Tickets\Enums\TicketStatus;
+use Layers\Tickets\Enums\TicketStatus;
 use Illuminate\Support\Facades\DB;
 use Layers\Tickets\Models\Ticket;
 

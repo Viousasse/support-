@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Tickets\Actions\ResolveTicket;
 use App\Tickets\Actions\AssignTicket;
 use Layers\Tickets\Models\Ticket;
 use App\Models\User;
@@ -16,5 +16,16 @@ class TicketTransitionController extends Controller
         $updatedTicket = $action->execute($ticket, $technician);
 
         return response()->json($updatedTicket);
+    }
+    public function resolve(Ticket $ticket)
+    {
+        $action = new ResolveTicket();
+
+        $ticket = $action->execute($ticket);
+
+        return response()->json([
+            'message' => 'Ticket resolved successfully',
+            'ticket' => $ticket,
+        ]);
     }
 }
