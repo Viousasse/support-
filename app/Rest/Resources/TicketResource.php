@@ -2,16 +2,17 @@
 
 namespace App\Rest\Resources;
 
-use Lomkit\Rest\Concerns\Resource\DisableAuthorizations;
+//use Lomkit\Rest\Concerns\Resource\DisableAuthorizations;
 use Lomkit\Rest\Http\Requests\RestRequest;
 use Lomkit\Rest\Relations\BelongsTo;
 use Lomkit\Rest\Relations\HasMany;
 use App\Rest\Resources\UserResource;
 use App\Rest\Resources\CommentResource;
+use Layers\Tickets\Models\Ticket;
 
 class TicketResource extends Resource
 {
-    use DisableAuthorizations;
+    //use DisableAuthorizations;
     /**
      * The model the resource corresponds to.
      *
@@ -53,7 +54,9 @@ class TicketResource extends Resource
      */
     public function scopes(RestRequest $request): array
     {
-        return [];
+        return [
+        'controlled' => fn ($query) => $query->controlled(),
+    ];
     }
 
     /**
@@ -83,4 +86,11 @@ class TicketResource extends Resource
     {
         return [];
     }
+    public function indexQuery(): \Illuminate\Database\Eloquent\Builder
+{
+    return Ticket::controlled();
+}
+public function searchQuery(\Lomkit\Rest\Http\Requests\RestRequest $request, \Illuminate\Contracts\Database\Eloquent\Builder $query) {
+    return $query->controlled();
+}
 }

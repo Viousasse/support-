@@ -1,6 +1,6 @@
 <?php
 
-namespace Layers\Tickets\Enums;
+namespace App\Tickets\Enums;
 
 enum TicketStatus: string
 {
@@ -14,16 +14,9 @@ enum TicketStatus: string
     {
         return match ($this) {
             self::Open => $to === self::Assigned,
-
-            self::Assigned => $to === self::InProgress
-                || $to === self::Open,
-
-            self::InProgress => $to === self::Resolved
-                || $to === self::Assigned,
-
-            self::Resolved => $to === self::Closed
-                || $to === self::InProgress,
-
+            self::Assigned => $to === self::InProgress || $to === self::Open,
+            self::InProgress => $to === self::Resolved || $to === self::Assigned,
+            self::Resolved => $to === self::Closed || $to === self::InProgress,
             self::Closed => false,
         };
     }
