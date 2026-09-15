@@ -7,17 +7,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Layers\Tickets\Database\Factories\CommentFactory;
+use Layers\Tickets\Models\Concerns\RecordsAttributeChanges;
 
 final class Comment extends Model
 {
     /** @use HasFactory<CommentFactory> */
     use HasFactory;
 
+    use RecordsAttributeChanges;
+
     protected $fillable = [
         'ticket_id',
         'author_id',
         'body',
     ];
+
+    /**
+     * @return array<int, string>
+     */
+    public function recordedAttributes(): array
+    {
+        return ['body'];
+    }
 
     /**
      * @return BelongsTo<Ticket, $this>

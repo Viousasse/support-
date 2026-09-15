@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Layers\Tickets\Database\Factories\TicketFactory;
 use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Enums\TicketStatus;
+use Layers\Tickets\Models\Concerns\RecordsAttributeChanges;
 use Lomkit\Access\Controls\HasControl;
 
 final class Ticket extends Model
@@ -23,6 +24,7 @@ final class Ticket extends Model
     use HasFactory;
 
     use Prunable;
+    use RecordsAttributeChanges;
     use SoftDeletes;
 
     public const RETENTION_DAYS = 30;
@@ -48,6 +50,14 @@ final class Ticket extends Model
             'escalated_at' => 'datetime',
             'sla_met' => 'boolean',
         ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function recordedAttributes(): array
+    {
+        return ['status', 'priority', 'assigned_technician_id'];
     }
 
     /**
@@ -86,6 +96,7 @@ final class Ticket extends Model
     {
         $this->attachments()->delete();
         $this->comments()->delete();
+        $this->attributeChanges()->delete();
     }
 
     /**
