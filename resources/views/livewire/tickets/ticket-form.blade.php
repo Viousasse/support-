@@ -1,94 +1,113 @@
 <div class="space-y-6">
-    <h1 class="text-2xl font-semibold">
-        {{ $ticket === null ? __('tickets.form.create_heading') : __('tickets.form.edit_heading') }}
-    </h1>
+    <header>
+        <p class="text-xs font-bold tracking-[0.2em] text-brand-600 uppercase">{{ __('layout.nav.tickets') }}</p>
+        <h1 class="font-serif text-3xl font-bold">
+            {{ $ticket === null ? __('tickets.form.create_heading') : __('tickets.form.edit_heading') }}
+        </h1>
+    </header>
 
     @if (session('status'))
-        <p class="rounded bg-green-100 px-4 py-2 text-green-800">{{ session('status') }}</p>
+        <x-alert>{{ session('status') }}</x-alert>
     @endif
 
     @error('ticket')
-        <p class="rounded bg-red-100 px-4 py-2 text-red-800">{{ $message }}</p>
+        <x-alert tone="error">{{ $message }}</x-alert>
     @enderror
 
-    <form wire:submit="save" class="space-y-4">
-        <div class="flex flex-col">
-            <label for="title" class="text-sm font-medium">{{ __('tickets.form.title') }}</label>
-            <input id="title" type="text" wire:model="title" class="rounded border-gray-300">
-            @error('title')
-                <span class="text-sm text-red-700">{{ $message }}</span>
-            @enderror
-        </div>
+    <div class="grid gap-6 lg:grid-cols-3">
+        <x-card class="lg:col-span-2">
+            <form wire:submit="save" class="flex flex-col gap-5">
+                <x-field :label="__('tickets.form.title')" for="title">
+                    <input id="title" type="text" wire:model="title"
+                           class="rounded-md border border-ink-200 bg-sand-50 px-3 py-2 text-sm">
+                </x-field>
 
-        <div class="flex flex-col">
-            <label for="description" class="text-sm font-medium">{{ __('tickets.form.description') }}</label>
-            <textarea id="description" rows="5" wire:model="description" class="rounded border-gray-300"></textarea>
-            @error('description')
-                <span class="text-sm text-red-700">{{ $message }}</span>
-            @enderror
-        </div>
+                <x-field :label="__('tickets.form.description')" for="description">
+                    <textarea id="description" rows="8" wire:model="description"
+                              class="rounded-md border border-ink-200 bg-sand-50 px-3 py-2 text-sm"></textarea>
+                </x-field>
 
-        <div class="flex flex-col">
-            <label for="priority" class="text-sm font-medium">{{ __('tickets.form.priority') }}</label>
-            <select id="priority" wire:model="priority" class="rounded border-gray-300">
-                @foreach ($priorities as $case)
-                    <option value="{{ $case->value }}">{{ __($case->translationKey()) }}</option>
-                @endforeach
-            </select>
-            @error('priority')
-                <span class="text-sm text-red-700">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <button type="submit" class="rounded bg-gray-900 px-4 py-2 text-white">
-            {{ __('tickets.form.submit') }}
-        </button>
-    </form>
-
-    @if ($ticket !== null)
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold">{{ __('tickets.form.attachments_heading') }}</h2>
-
-            <ul class="list-inside list-disc text-sm">
-                @forelse ($attachments as $attachment)
-                    <li wire:key="attachment-{{ $attachment->id }}">{{ $attachment->name }}</li>
-                @empty
-                    <li class="list-none text-gray-500">{{ __('tickets.form.no_attachment') }}</li>
-                @endforelse
-            </ul>
-
-            <form wire:submit="attach" class="flex items-end gap-3">
-                <div class="flex flex-col">
-                    <label for="attachment" class="text-sm font-medium">{{ __('tickets.form.attachment') }}</label>
-                    <input id="attachment" type="file" wire:model="attachment" class="rounded border-gray-300">
-                    @error('attachment')
-                        <span class="text-sm text-red-700">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <button type="submit" class="rounded bg-gray-700 px-4 py-2 text-white">
-                    {{ __('tickets.form.attach') }}
-                </button>
-            </form>
-        </section>
-    @endif
-
-    @if ($canAssign)
-        @if ($ticket !== null)
-            <form wire:submit="assign" class="flex items-end gap-3">
-                <div class="flex flex-col">
-                    <label for="technician" class="text-sm font-medium">{{ __('tickets.form.technician') }}</label>
-                    <select id="technician" wire:model="technicianId" class="rounded border-gray-300">
-                        @foreach ($technicians as $technician)
-                            <option value="{{ $technician->id }}">{{ $technician->name }}</option>
+                <x-field :label="__('tickets.form.priority')" for="priority">
+                    <select id="priority" wire:model="priority"
+                            class="rounded-md border border-ink-200 bg-sand-50 px-3 py-2 text-sm">
+                        @foreach ($priorities as $case)
+                            <option value="{{ $case->value }}">{{ __($case->translationKey()) }}</option>
                         @endforeach
                     </select>
-                </div>
+                </x-field>
 
-                <button type="submit" class="rounded bg-blue-700 px-4 py-2 text-white">
-                    {{ __('tickets.form.assign') }}
-                </button>
+                <div>
+                    <x-button type="submit">{{ __('tickets.form.submit') }}</x-button>
+                </div>
             </form>
-        @endif
-    @endif
+        </x-card>
+
+        <div class="flex flex-col gap-6">
+            @if ($ticket !== null)
+                <x-card class="space-y-4">
+                    <h2 class="font-serif text-lg font-bold">{{ __('tickets.list.columns.status') }}</h2>
+
+                    <div class="flex flex-wrap gap-2">
+                        <x-badge :tone="$ticket->status->tone()">{{ __($ticket->status->translationKey()) }}</x-badge>
+                        <x-badge :tone="$ticket->priority->tone()">{{ __($ticket->priority->translationKey()) }}</x-badge>
+                    </div>
+
+                    <dl class="space-y-1 text-sm">
+                        <div class="flex justify-between gap-4">
+                            <dt class="text-ink-500">{{ __('tickets.list.columns.requester') }}</dt>
+                            <dd>{{ $ticket->requester->name }}</dd>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <dt class="text-ink-500">{{ __('tickets.list.columns.assigned_technician') }}</dt>
+                            <dd>{{ $ticket->assignedTechnician?->name ?? __('tickets.list.unassigned') }}</dd>
+                        </div>
+                    </dl>
+                </x-card>
+
+                <x-card class="space-y-4">
+                    <h2 class="font-serif text-lg font-bold">{{ __('tickets.form.attachments_heading') }}</h2>
+
+                    <ul class="space-y-1 text-sm">
+                        @forelse ($attachments as $attachment)
+                            <li wire:key="attachment-{{ $attachment->id }}" class="text-ink-700">{{ $attachment->name }}</li>
+                        @empty
+                            <li class="text-ink-500">{{ __('tickets.form.no_attachment') }}</li>
+                        @endforelse
+                    </ul>
+
+                    <form wire:submit="attach" class="flex flex-col gap-3">
+                        <x-field :label="__('tickets.form.attachment')" for="attachment">
+                            <input id="attachment" type="file" wire:model="attachment"
+                                   class="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-sand-200 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-ink-700">
+                        </x-field>
+
+                        <div>
+                            <x-button type="submit" variant="secondary">{{ __('tickets.form.attach') }}</x-button>
+                        </div>
+                    </form>
+                </x-card>
+
+                @if ($canAssign)
+                    <x-card class="space-y-4">
+                        <h2 class="font-serif text-lg font-bold">{{ __('tickets.form.assign') }}</h2>
+
+                        <form wire:submit="assign" class="flex flex-col gap-3">
+                            <x-field :label="__('tickets.form.technician')" for="technician">
+                                <select id="technician" wire:model="technicianId"
+                                        class="rounded-md border border-ink-200 bg-sand-50 px-3 py-2 text-sm">
+                                    @foreach ($technicians as $technician)
+                                        <option value="{{ $technician->id }}">{{ $technician->name }}</option>
+                                    @endforeach
+                                </select>
+                            </x-field>
+
+                            <div>
+                                <x-button type="submit" variant="secondary">{{ __('tickets.form.assign') }}</x-button>
+                            </div>
+                        </form>
+                    </x-card>
+                @endif
+            @endif
+        </div>
+    </div>
 </div>

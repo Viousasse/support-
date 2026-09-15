@@ -42,6 +42,20 @@ enum TicketStatus: string
         return array_values(array_filter(self::cases(), fn (self $status): bool => $status->isTerminal()));
     }
 
+    /**
+     * The semantic tone the interface paints this status with. The enum names
+     * the meaning, the view owns the styling.
+     */
+    public function tone(): string
+    {
+        return match ($this) {
+            self::Open => 'neutral',
+            self::Assigned, self::InProgress => 'info',
+            self::Resolved => 'success',
+            self::Closed => 'muted',
+        };
+    }
+
     public function translationKey(): string
     {
         return "tickets.status.{$this->value}";

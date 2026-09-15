@@ -6,4 +6,26 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: Cambria, Georgia, ui-serif, serif;
+    --font-mono: 'Courier New', ui-monospace, monospace;
+
+    /* Palette read from the XEFI Academy course material. */
+    --color-brand-50: #fbefee;
+    --color-brand-200: #f3c9b6;
+    --color-brand-400: #e8703a;
+    --color-brand-600: #c1440e;
+    --color-brand-800: #a3241b;
+
+    --color-ink-900: #17171c;
+    --color-ink-700: #24242c;
+    --color-ink-500: #6a6a73;
+    --color-ink-300: #b9b9c2;
+    --color-ink-200: #d5d5dc;
+
+    --color-sand-50: #ffffff;
+    --color-sand-100: #f4f1ee;
+    --color-sand-200: #e9e3dc;
+
+    --color-leaf-50: #eef4f0;
+    --color-leaf-700: #2f6b47;
 }

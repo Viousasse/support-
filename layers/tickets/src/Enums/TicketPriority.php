@@ -29,6 +29,20 @@ enum TicketPriority: string
         };
     }
 
+    /**
+     * The semantic tone the interface paints this priority with. The enum names
+     * the meaning, the view owns the styling.
+     */
+    public function tone(): string
+    {
+        return match ($this) {
+            self::Low => 'muted',
+            self::Normal => 'neutral',
+            self::High => 'accent',
+            self::Critical => 'danger',
+        };
+    }
+
     public function translationKey(): string
     {
         return "tickets.priority.{$this->value}";
