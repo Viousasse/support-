@@ -69,11 +69,24 @@ return [
         'attachment_max' => 'The attachment may not be larger than :max kilobytes.',
     ],
 
+    'console' => [
+        'examined' => 'Examined',
+        'escalated' => 'Escalated',
+        'flagged' => 'Flagged',
+    ],
+
     'exceptions' => [
         'invalid_status_transition' => 'A ticket cannot move from :from to :to.',
     ],
 
     'notifications' => [
+        'escalated' => [
+            'subject' => 'A ticket went past its target',
+            'introduction' => 'The ticket ":title" went past its resolution target.',
+            'priority' => 'Its priority is now: :priority',
+            'action' => 'View tickets',
+        ],
+
         'assigned' => [
             'subject' => 'A ticket has been assigned to you',
             'introduction' => 'A ticket has been assigned to you.',

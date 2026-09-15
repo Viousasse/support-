@@ -35,6 +35,7 @@ final class Ticket extends Model
         'status',
         'priority',
         'resolved_at',
+        'escalated_at',
         'sla_met',
     ];
 
@@ -44,6 +45,7 @@ final class Ticket extends Model
             'status' => TicketStatus::class,
             'priority' => TicketPriority::class,
             'resolved_at' => 'datetime',
+            'escalated_at' => 'datetime',
             'sla_met' => 'boolean',
         ];
     }

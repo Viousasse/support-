@@ -34,6 +34,14 @@ enum TicketStatus: string
         };
     }
 
+    /**
+     * @return array<int, self>
+     */
+    public static function terminal(): array
+    {
+        return array_values(array_filter(self::cases(), fn (self $status): bool => $status->isTerminal()));
+    }
+
     public function translationKey(): string
     {
         return "tickets.status.{$this->value}";

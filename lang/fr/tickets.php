@@ -69,11 +69,24 @@ return [
         'attachment_max' => 'La pièce jointe ne peut pas dépasser :max kilo-octets.',
     ],
 
+    'console' => [
+        'examined' => 'Examinés',
+        'escalated' => 'Escaladés',
+        'flagged' => 'Signalés',
+    ],
+
     'exceptions' => [
         'invalid_status_transition' => 'Un ticket ne peut pas passer de :from à :to.',
     ],
 
     'notifications' => [
+        'escalated' => [
+            'subject' => 'Un ticket a dépassé sa cible',
+            'introduction' => 'Le ticket « :title » a dépassé son délai de résolution.',
+            'priority' => 'Sa priorité est désormais : :priority',
+            'action' => 'Voir les tickets',
+        ],
+
         'assigned' => [
             'subject' => 'Un ticket vous a été assigné',
             'introduction' => 'Un ticket vous a été assigné.',

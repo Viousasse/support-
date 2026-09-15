@@ -19,6 +19,16 @@ enum TicketPriority: string
         };
     }
 
+    public function next(): ?self
+    {
+        return match ($this) {
+            self::Low => self::Normal,
+            self::Normal => self::High,
+            self::High => self::Critical,
+            self::Critical => null,
+        };
+    }
+
     public function translationKey(): string
     {
         return "tickets.priority.{$this->value}";

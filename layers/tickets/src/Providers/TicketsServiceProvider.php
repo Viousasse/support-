@@ -5,6 +5,7 @@ namespace Layers\Tickets\Providers;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Layers\Tickets\Console\EscalateOverdueTicketsCommand;
 use Layers\Tickets\Events\TicketAssigned;
 use Layers\Tickets\Listeners\SendTicketAssignedNotification;
 use Layers\Tickets\Models\Attachment;
@@ -19,6 +20,8 @@ final class TicketsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        $this->commands([EscalateOverdueTicketsCommand::class]);
 
         Gate::policy(Ticket::class, TicketPolicy::class);
         Gate::policy(Attachment::class, AttachmentPolicy::class);
