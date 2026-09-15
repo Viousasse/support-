@@ -75,6 +75,21 @@ return [
         'flagged' => 'Signalés',
     ],
 
+    'import' => [
+        'heading' => 'Importer des tickets',
+        'file' => 'Fichier CSV',
+        'submit' => 'Importer',
+        'queued' => 'L’import a été mis en file.',
+        'unknown_requester' => 'Aucun utilisateur ne correspond à l’adresse :email.',
+        'rows_read' => 'Lignes lues',
+        'rows_created' => 'Tickets créés',
+        'rejections' => 'Lignes rejetées',
+        'line' => 'Ligne :line : :reason',
+        'pending' => 'L’import est encore en cours.',
+        'file_required' => 'Un fichier CSV est obligatoire.',
+        'file_mimes' => 'Le fichier doit être au format CSV.',
+    ],
+
     'exceptions' => [
         'invalid_status_transition' => 'Un ticket ne peut pas passer de :from à :to.',
     ],

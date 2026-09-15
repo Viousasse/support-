@@ -75,6 +75,21 @@ return [
         'flagged' => 'Flagged',
     ],
 
+    'import' => [
+        'heading' => 'Import tickets',
+        'file' => 'CSV file',
+        'submit' => 'Import',
+        'queued' => 'The import has been queued.',
+        'unknown_requester' => 'No user matches the email address :email.',
+        'rows_read' => 'Rows read',
+        'rows_created' => 'Tickets created',
+        'rejections' => 'Rejected rows',
+        'line' => 'Line :line: :reason',
+        'pending' => 'The import is still running.',
+        'file_required' => 'A CSV file is required.',
+        'file_mimes' => 'The file must be a CSV file.',
+    ],
+
     'exceptions' => [
         'invalid_status_transition' => 'A ticket cannot move from :from to :to.',
     ],

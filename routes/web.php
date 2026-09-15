@@ -3,6 +3,7 @@
 use App\Http\Controllers\LogoutController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Tickets\TicketForm;
+use App\Livewire\Tickets\TicketImportForm;
 use App\Livewire\Tickets\TicketList;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,6 @@ Route::middleware('auth')->group(function (): void {
 
     Route::livewire('/tickets', TicketList::class)->name('tickets.index');
     Route::livewire('/tickets/create', TicketForm::class)->name('tickets.create');
+    Route::livewire('/tickets/import', TicketImportForm::class)->name('tickets.import');
     Route::livewire('/tickets/{ticket}/edit', TicketForm::class)->name('tickets.edit');
 });
