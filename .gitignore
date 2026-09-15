@@ -26,3 +26,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /database/*.sqlite*
+
+# Internal XEFI design system, installed locally as an agent skill.
+/.claude/skills/xefi-design
