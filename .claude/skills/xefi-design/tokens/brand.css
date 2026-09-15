@@ -1,0 +1,24 @@
+/* Marque XEFI — valeurs de la charte graphique 2025.
+   Rouge extincteur : CMJN 0/88/100/0 · RVB 225/6/0 · Pantone 2347c · RAL 3020 · #E10600
+   Noir : Pantone P Process Black C · #000000     Blanc : Pantone P 1-1c · #FFFFFF
+   L'univers chromatique se borne volontairement à ces trois valeurs, complétées par un
+   gris neutre. Aucun dégradé, aucune couleur d'appoint hors statuts fonctionnels. */
+:root{
+--xefi-red:#E10600;
+--xefi-black:#000000;
+--xefi-white:#FFFFFF;
+
+/* Gris neutre de la charte — le noir décliné en opacités pleines */
+--xefi-black-90:#191919;
+--xefi-black-80:#333333; /* ajout — même règle de construction, requis par le thème sombre */
+--xefi-black-70:#4C4C4C;
+--xefi-black-50:#7F7F7F;
+--xefi-black-30:#B2B2B2;
+--xefi-black-20:#CCCCCC;
+--xefi-black-10:#E5E5E5;
+
+/* Chevron — signature utilisable seule, jamais recolorisée hors ces trois valeurs */
+--xefi-chevron-red:var(--xefi-red);
+--xefi-chevron-black:var(--xefi-black);
+--xefi-chevron-white:var(--xefi-white);
+}

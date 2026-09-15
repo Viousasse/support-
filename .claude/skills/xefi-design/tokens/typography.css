@@ -1,0 +1,72 @@
+/* Typographie XEFI.
+   Le socle suit la charte (Montserrat, Segoe UI) et l'échelle de titres du produit
+   (H1 32 / H2 24 / H3 20 / H4 16, corps 14 par défaut, 12 en secondaire).
+   Les deux familles produit restent exposées pour la fidélité des kits. */
+:root{
+/* Familles — socle */
+--font-display:"Montserrat",system-ui,"Segoe UI",Arial,sans-serif;
+--font-ui:"Segoe UI","Montserrat",system-ui,-apple-system,Arial,sans-serif;
+--font-print:"Helvetica Neue",Helvetica,Arial,sans-serif;
+--font-office:Arial,Helvetica,sans-serif;
+
+/* Familles — produits */
+--font-core:"Lato",system-ui,-apple-system,"Segoe UI",sans-serif;
+--font-datagrid-header:"Inter","Lato",system-ui,sans-serif;
+--font-sans:"Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-data:"Roboto",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+
+/* Graisses */
+--fw-light:300; /* @kind font */
+--fw-regular:400; /* @kind font */
+--fw-medium:500; /* @kind font */
+--fw-semibold:600; /* @kind font */
+--fw-bold:700; /* @kind font */
+--fw-extrabold:700; /* @kind font */
+--fw-black:900; /* @kind font */
+--weight-regular:400; /* @kind font */
+--weight-medium:500; /* @kind font */
+--weight-semibold:600; /* @kind font */
+--weight-bold:700; /* @kind font */
+
+/* Échelle de titres du socle */
+--title-h1-size:32px;--title-h1-line:40px;
+--title-h2-size:24px;--title-h2-line:32px;
+--title-h3-size:20px;--title-h3-line:28px;
+--title-h4-size:16px;--title-h4-line:24px;
+
+/* Corps du socle — 14 par défaut, 12 en secondaire */
+--body-size:14px;--body-line:20px;
+--body-sm-size:12px;--body-sm-line:16px;
+
+/* Échelle DailyApps — titres ExtraBold, tout le fonctionnel en 14 */
+--tittle-24-size:24px;--tittle-24-weight:var(--fw-extrabold);--tittle-24-line:32px;
+--tittle-18-size:18px;--tittle-18-weight:var(--fw-extrabold);--tittle-18-line:24px;
+--tittle-16-size:16px;--tittle-16-weight:var(--fw-extrabold);--tittle-16-line:24px;
+--tittle-14-size:14px;--tittle-14-weight:var(--fw-extrabold);--tittle-14-line:20px;
+--tittle-12-size:12px;--tittle-12-weight:var(--fw-extrabold);--tittle-12-line:16px;
+--subtitle-16-size:16px;--subtitle-16-weight:var(--fw-regular);--subtitle-16-line:24px;
+--subtitle-14-size:14px;--subtitle-14-weight:var(--fw-regular);--subtitle-14-line:20px;
+--subtitle-12-size:12px;--subtitle-12-weight:var(--fw-regular);--subtitle-12-line:16px;
+--body-14-size:14px;--body-14-weight:var(--fw-regular);--body-14-line:20px;
+--button-14-size:14px;--button-14-weight:var(--fw-regular);--button-14-line:20px;
+--input-14-size:14px;--input-14-weight:var(--fw-regular);--input-14-line:20px;
+--tabs-14-size:14px;--tabs-14-weight:var(--fw-regular);--tabs-14-line:20px;
+--datagrid-body-14-size:14px;--datagrid-body-14-weight:var(--fw-regular);--datagrid-body-14-line:20px;
+--datagrid-header-14-size:14px;--datagrid-header-14-weight:var(--fw-regular);--datagrid-header-14-line:20px;
+--label-12-size:12px;--label-12-line:16px;
+--eyebrow-tracking:0.14em;
+
+/* Échelle DailyUp — dérivée Material */
+--text-display-size:48px;--text-display-line:56px;
+--text-h1-size:32px;--text-h1-line:40px;
+--text-h2-size:24px;--text-h2-line:32px;
+--text-h3-size:20px;--text-h3-line:28px;
+--text-body-lg-size:18px;--text-body-lg-line:28px;
+--text-body-md-size:16px;--text-body-md-line:24px;
+--text-body-sm-size:14px;--text-body-sm-line:20px;
+--text-label-lg-size:16px;--text-label-lg-line:24px;
+--text-label-md-size:14px;--text-label-md-line:20px;
+--text-label-sm-size:12px;--text-label-sm-line:16px;
+--text-caption-size:12px;--text-caption-line:16px;
+--text-overline-size:11px;--text-overline-line:16px;
+}

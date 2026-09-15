@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="700x672" name="Retours utilisateur" subtitle="Alert, Dialog, EmptyState, SidePanel" -->
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Feedback</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--white);font-family:var(--font-core)}#root{padding:16px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.col{display:flex;flex-direction:column;gap:12px}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const NS = window.XEFIDesignSystem_6d8aa5;
+
+const {Alert, EmptyState, Button, Icon, Card} = NS;
+function Demo(){return (<div className="col">
+  <div className="col" style={{background:'var(--background)',padding:16,borderRadius:16}}>
+    <Alert tone="success" title="Note de frais validée" onClose={()=>{}}>Votre note a été transmise.</Alert>
+    <Alert tone="error" title="Note de frais refusée" onClose={()=>{}}>Motif : justificatif manquant.</Alert>
+    <Alert tone="warning" title="Note à corriger" onClose={()=>{}}>Deux lignes sont incomplètes.</Alert>
+    <Alert tone="info" title="Note en paie" onClose={()=>{}}>Remboursement le 30/06.</Alert>
+  </div>
+  <div className="row" style={{alignItems:'stretch'}}>
+    <Card style={{flex:1}}>
+      <div style={{fontSize:18,fontWeight:700,color:'var(--text-title)'}}>Supprimer cette dépense ?</div>
+      <p style={{fontSize:14,color:'var(--text-muted)',margin:'8px 0 0'}}>Cette action est définitive.</p>
+      <div style={{display:'flex',justifyContent:'flex-end',gap:8,marginTop:24}}><Button variant="neutral">Annuler</Button><Button>Supprimer</Button></div>
+    </Card>
+    <Card style={{flex:1}}><EmptyState icon={<Icon name="receipt" size={32}/>} title="Aucune note de frais" description="Créez votre première note." action={<Button>Créer une note</Button>}/></Card>
+  </div>
+</div>);}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

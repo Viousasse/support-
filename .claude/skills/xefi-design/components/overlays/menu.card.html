@@ -1,0 +1,59 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Menu & Divider" subtitle="Menu d'actions déroulant — état ouvert, déclencheurs, et filets séparateurs" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+body{margin:0;padding:16px;background:var(--surface-card);font-family:var(--font-core);color:var(--text-body)}
+.cols{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+.lbl{font-size:11px;font-weight:700;color:var(--text-title);margin-bottom:8px}
+.n{font-size:11px;line-height:15px;color:var(--text-muted)}
+.row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Menu, Divider, Button, IconButton, Icon } = window.XEFIDesignSystem_6d8aa5;
+const items = [
+  { label: "Modifier", icon: <Icon name="StickerTextOutline" size={18} />, onClick: ()=>{} },
+  { label: "Dupliquer", icon: <Icon name="FileSign" size={18} />, onClick: ()=>{} },
+  { label: "Historique", icon: <Icon name="History" size={18} />, onClick: ()=>{} },
+  { divider: true },
+  { label: "Supprimer", tone: "danger", icon: <Icon name="TrashCanOutline" size={18} />, onClick: ()=>{} },
+];
+function Demo() {
+  return (
+    <div className="cols">
+      <div>
+        <div className="lbl">Ouvert</div>
+        <Menu defaultOpen trigger={<Button variant="neutral" icon={<Icon name="MenuDown" size={18} />} iconPosition="right">Actions</Button>} items={items} />
+      </div>
+      <div>
+        <div className="lbl">Déclencheurs</div>
+        <div className="row">
+          <Menu trigger={<Button variant="neutral" icon={<Icon name="MenuDown" size={18} />} iconPosition="right">Actions</Button>} items={items} />
+          <Menu align="right" trigger={<IconButton label="Options" icon={<Icon name="MoreVertStyleRound" size={20} />} />} items={items} />
+        </div>
+        <div className="lbl">Divider</div>
+        <div style={{display:"flex", alignItems:"center", gap:16, height:32}}>
+          <span className="n">avant</span>
+          <Divider orientation="vertical" />
+          <span className="n">après</span>
+        </div>
+        <div style={{margin:"12px 0"}}><Divider /></div>
+        <Divider label="ou" />
+        <div className="n" style={{marginTop:16}}>Un menu ne contient que des actions, jamais de la navigation. L'action destructive est en dernier, en rouge, séparée par un filet.</div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

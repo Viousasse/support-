@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Coquille d'application web" description="Navigation latérale, barre supérieure et zone de contenu, aux valeurs du socle XEFI." -->
+<helmet>
+<script src="./ds-base.js"></script>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%}a{color:#1473E6;text-decoration:none}a:hover{color:#0C56B0;text-decoration:underline}:where(button,a,input,select):focus-visible{outline:2px solid #1473E6;outline-offset:2px}</style>
+</helmet>
+<div style="display:flex;height:100vh;overflow:hidden;background:#F5F5F6;font-family:Lato,system-ui,'Segoe UI',sans-serif;color:#3E3E3E">
+
+<aside style="width:250px;flex:none;background:#212121;display:flex;flex-direction:column;overflow:hidden">
+<button style="margin:16px;height:40px;display:flex;align-items:center;gap:8px;padding:0 8px;background:#E10600;border:0;border-radius:8px;color:#FFFFFF;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">
+<span style="width:24px;height:24px;border-radius:4px;background:#FFFFFF;color:#E10600;display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:16px;line-height:1">+</span>
+Créer
+</button>
+<span style="height:2px;background:#3E3E3E;margin:0 16px"></span>
+<nav style="display:flex;flex-direction:column;gap:8px;padding:24px 16px 0">
+<a href="#rubrique-1" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 10px;border-radius:8px;background:#E10600;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none">Première rubrique</a>
+<a href="#rubrique-2" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 10px;border-radius:8px;color:#707070;font-size:14px;text-decoration:none">Deuxième rubrique</a>
+<a href="#rubrique-3" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 10px;border-radius:8px;color:#707070;font-size:14px;text-decoration:none">Troisième rubrique</a>
+<a href="#rubrique-4" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 10px;border-radius:8px;color:#707070;font-size:14px;text-decoration:none">Paramétrages</a>
+</nav>
+</aside>
+
+<div style="flex:1;display:flex;flex-direction:column;min-width:0">
+<header style="height:60px;flex:none;background:#FFFFFF;display:flex;align-items:center;gap:24px;padding:0 24px;border-bottom:1px solid #F2F2F2">
+<img src="../../assets/logo/xefi-sans-baseline-rouge-noir.svg" alt="XEFI" style="height:24px;display:block">
+<span style="width:1px;height:28px;background:#D3D3D3"></span>
+<span style="font-size:18px;line-height:24px;font-weight:700;color:#2F2F2F">Titre du module</span>
+<span style="flex:1"></span>
+<button style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;background:transparent;border:0;border-radius:8px;color:#3E3E3E;font-family:inherit;font-size:14px;cursor:pointer">Prénom Nom</button>
+</header>
+
+<main style="flex:1;overflow:auto;padding:40px">
+<div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:24px">
+
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<h1 style="flex:1;min-width:0;margin:0;font-size:24px;line-height:32px;font-weight:700;color:#2F2F2F">Titre de la page</h1>
+<button style="height:40px;padding:0 16px;background:#FFFFFF;border:1px solid #D3D3D3;border-radius:8px;color:#3E3E3E;font-family:inherit;font-size:14px;cursor:pointer">Action secondaire</button>
+<button style="height:40px;padding:0 16px;background:#E10600;border:0;border-radius:8px;color:#FFFFFF;font-family:inherit;font-size:14px;cursor:pointer">Action principale</button>
+</div>
+
+<section style="background:#FFFFFF;border-radius:16px;box-shadow:0 0 30px rgba(0,0,0,0.10);padding:24px">
+<h2 style="margin:0 0 4px;font-size:16px;line-height:24px;font-weight:700;color:#2F2F2F">Titre du module</h2>
+<p style="margin:0;font-size:14px;line-height:20px;color:#707070">Remplacez ce module par le contenu de votre écran. Un module blanc, rayon 16, ombre sans décalage, posé sur le fond gris de la page.</p>
+</section>
+
+<section style="background:#FFFFFF;border-radius:16px;box-shadow:0 0 30px rgba(0,0,0,0.10);padding:24px">
+<h2 style="margin:0 0 4px;font-size:16px;line-height:24px;font-weight:700;color:#2F2F2F">Deuxième module</h2>
+<p style="margin:0;font-size:14px;line-height:20px;color:#707070">Une page est un empilement de modules dans le conteneur de 1200 px, avec 24 px entre eux et 40 px de marge de page.</p>
+</section>
+
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Navigation" subtitle="Sidebar, TopBar" -->
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Navigation</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--background);font-family:var(--font-core)}#root{display:flex;height:420px;overflow:hidden}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const {Sidebar, TopBar, Icon, IconButton} = window.XEFIDesignSystem_6d8aa5;
+const items=[
+ {id:"en-cours",label:"Note en cours",icon:<Icon name="file-pen-line" size={20}/>},
+ {id:"transmises",label:"Notes transmises",icon:<Icon name="History" size={20}/>},
+ {id:"equipe",label:"Mon équipe",icon:<Icon name="users" size={20}/>},
+ {id:"comptabilite",label:"Envoi en comptabilité",icon:<Icon name="send" size={20}/>},
+ {id:"statistique",label:"Statistique",icon:<Icon name="chart-no-axes-column-increasing" size={20}/>},
+ {id:"regles",label:"Règles de dépenses",icon:<Icon name="shield" size={20}/>},
+ {id:"parametrages",label:"Paramétrages",icon:<Icon name="CogOutline" size={20}/>}
+];
+function Demo(){
+  const [active,setActive]=React.useState("parametrages");
+  return (<React.Fragment>
+    <Sidebar items={items} active={active} onNavigate={setActive} ctaIcon={<Icon name="Plus" size={16}/>} basePath="../../assets"/>
+    <div style={{flex:1,minWidth:0}}>
+      <TopBar title="Note de frais" basePath="../../assets"
+        actions={<IconButton icon={<Icon name="NotificationsStyleOutlined" size={18}/>} label="Notifications" size={36} variant="ghost"/>}
+        user={<button className="da-topbar__user"><Icon name="AccountOutline" size={20}/>Antoine Fontaine<Icon name="ChevronDown" size={16}/></button>}/>
+    </div>
+  </React.Fragment>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script></body></html>

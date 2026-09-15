@@ -1,0 +1,38 @@
+<!-- @dsCard group="Components" viewport="700x160" name="Avatar Inline & Number Tag" subtitle="Avatar with name/role, and the numeric 123 tag" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-background-canvas); font-family: var(--font-sans); }
+  .row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { AvatarInline, NumberTag } = window.XEFIDesignSystem_6d8aa5;
+function Demo() {
+  return (
+    <div>
+      <div className="row">
+        <AvatarInline initials="LV" name="Lorick Vacher" secondary="CODIR" />
+        <AvatarInline initials="JB" name="Jérémy Berthon" secondary="Production" size="md" />
+      </div>
+      <div className="row">
+        <NumberTag value={1} /><NumberTag value={12} /><NumberTag value={99} />
+        <NumberTag value={3} tone="brand" /><NumberTag value={8} tone="dark" />
+        <NumberTag value={42} variant="plain" /><NumberTag value={7} size="lg" tone="brand" />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

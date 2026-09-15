@@ -1,0 +1,13 @@
+/* Mouvement XEFI — discret et fonctionnel. On anime les couleurs, un curseur
+   d'interrupteur, la rotation d'un chevron. Rien ne rebondit, rien ne s'agrandit. */
+:root{
+--ease-standard:cubic-bezier(0.4,0,0.2,1); /* @kind other */
+--ease-accelerate:cubic-bezier(0.4,0,1,1); /* @kind other */
+--ease-decelerate:cubic-bezier(0,0,0.2,1); /* @kind other */
+--duration-fast:120ms; /* @kind other */
+--duration-base:180ms; /* @kind other */
+--motion-fastest:100ms; /* @kind other */
+--motion-fast:150ms; /* @kind other */
+--motion-normal:200ms; /* @kind other */
+--motion-slow:300ms; /* @kind other */
+}

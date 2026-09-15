@@ -1,0 +1,18 @@
+/* Ombres XEFI — la profondeur vient du flou, pas de la direction.
+   Une seule ombre est décalée : le volet latéral droit. Aucune ombre interne. */
+:root{
+--shadow-module:0 0 30px rgba(0,0,0,0.10);
+--shadow-module-2:0 0 8px rgba(112,112,112,0.05);
+--shadow-panel-right:0 4px 20px rgba(0,0,0,0.15);
+--shadow-modal:0 0 20px rgba(0,0,0,0.10);
+/* Rampe neutre DailyUp (dérivée Material) */
+--elevation-0:none;
+--elevation-1:0 1px 2px rgba(0,0,0,0.08),0 1px 3px rgba(0,0,0,0.06);
+--elevation-2:0 2px 4px rgba(0,0,0,0.08),0 1px 6px rgba(0,0,0,0.06);
+--elevation-3:0 4px 8px rgba(0,0,0,0.08),0 2px 12px rgba(0,0,0,0.06);
+--elevation-4:0 8px 16px rgba(0,0,0,0.10),0 4px 24px rgba(0,0,0,0.06);
+--elevation-overlay:0 16px 48px rgba(0,0,0,0.16),0 4px 16px rgba(0,0,0,0.08);
+--elevation-card:0 0 8px rgba(112,112,112,0.05);
+/* Anneau de focus — visible sur tout élément interactif (RGAA) */
+--focus-ring:0 0 0 3px rgba(20,115,230,0.30);
+}

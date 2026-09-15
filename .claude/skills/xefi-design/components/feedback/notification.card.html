@@ -1,0 +1,55 @@
+<!-- @dsCard group="Components" viewport="700x355" name="Notifications & Status" subtitle="Notification rows and presence status dots" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-background-canvas); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+  .panel { display: flex; flex-direction: column; gap: 4px; background: var(--color-background-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg-px); padding: 6px; }
+  .dots { display: flex; align-items: center; gap: 20px; padding: 16px; }
+  .dot-row { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 11px; color: var(--color-text-secondary); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { NotificationItem, StatusDot, Avatar, Icon } = window.XEFIDesignSystem_6d8aa5;
+function Demo() {
+  return (
+    <div className="grid">
+      <div className="panel">
+        <NotificationItem tone="brand" unread icon={<Icon name="CommentAlert" size={18} />} title="Nouveau commentaire" body="Sacha Rosenthal a commenté « Analyse des risques »." time="il y a 2 h" onClick={()=>{}} />
+        <NotificationItem tone="success" unread icon={<Icon name="Check" size={18} />} title="Rapport validé" body="Le rapport passe en production." time="il y a 5 h" onClick={()=>{}} />
+        <NotificationItem tone="info" icon={<Icon name="CashCheck" size={18} />} title="Facturation prête" body="3 lignes à facturer." time="hier" onClick={()=>{}} />
+      </div>
+      <div>
+        <div className="dots">
+          <div className="dot-row"><StatusDot status="online" pulse size={12} /><span>online</span></div>
+          <div className="dot-row"><StatusDot status="busy" size={12} /><span>busy</span></div>
+          <div className="dot-row"><StatusDot status="away" size={12} /><span>away</span></div>
+          <div className="dot-row"><StatusDot status="offline" size={12} /><span>offline</span></div>
+        </div>
+        <div className="dots">
+          <span style={{position:'relative',display:'inline-flex'}}>
+            <Avatar initials="LV" size="lg" />
+            <span style={{position:'absolute',right:2,bottom:2}}><StatusDot status="online" ring size={14} /></span>
+          </span>
+          <span style={{position:'relative',display:'inline-flex'}}>
+            <Avatar initials="JB" size="lg" />
+            <span style={{position:'absolute',right:2,bottom:2}}><StatusDot status="away" ring size={14} /></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

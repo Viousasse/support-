@@ -1,0 +1,38 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Formulaires" subtitle="Input, SearchInput, Select, Checkbox, Radio, Switch" -->
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Forms</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--white);font-family:var(--font-core)}#root{padding:16px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.col{display:flex;flex-direction:column;gap:12px}.grow{flex:1;min-width:150px}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const NS = window.XEFIDesignSystem_6d8aa5;
+
+const {Input, SearchInput, Select, Checkbox, Radio, Switch, Icon} = NS;
+function Demo(){
+  const [carte,setCarte]=React.useState('affaires');
+  return (<div className="col">
+    <div className="row" style={{alignItems:'flex-start'}}>
+      <Input label="Montant TTC" placeholder="Saisissez un montant" size={40} icon={<Icon name="receipt-euro" size={16}/>} className="grow"/>
+      <Input label="Montant TTC" defaultValue="48,50" size={40} className="grow"/>
+      <Input label="Montant TTC" defaultValue="48,50" size={40} error="Montant invalide" className="grow"/>
+      <Input label="Montant TTC" placeholder="Saisissez un montant" size={40} disabled className="grow"/>
+    </div>
+    <div className="row" style={{alignItems:'flex-start'}}>
+      <SearchInput size={36} className="grow"/>
+      <Select options={["Repas","Transport","Hébergement","Péage"]} size={40} className="grow"/>
+      <Input label="36 px" placeholder="Saisissez un montant" size={36} className="grow"/>
+      <Input label="48 px" placeholder="Saisissez un montant" size={48} className="grow"/>
+    </div>
+    <div className="row" style={{gap:24}}>
+      <Checkbox label="Inclure les repas"/><Checkbox label="Inclure les repas" defaultChecked/><Checkbox label="Inclure les repas" disabled/>
+      <Radio label="Carte affaires" checked={carte==='affaires'} onChange={()=>setCarte('affaires')}/>
+      <Radio label="Carte perso" checked={carte==='perso'} onChange={()=>setCarte('perso')}/>
+      <Switch label="Notifications" defaultChecked/><Switch label="Hors ligne"/>
+    </div>
+  </div>);}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

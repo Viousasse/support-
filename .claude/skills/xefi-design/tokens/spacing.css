@@ -1,0 +1,42 @@
+/* Espacements XEFI — grille de 4 px, sans exception hors typographie et hauteurs
+   de composants interactifs. Échelle nommée et échelle numérique désignent les mêmes
+   valeurs ; `md` (12) est réservé au padding interne. Marge de page : 40 px, hors échelle. */
+:root{
+--grid-unit:4px;
+
+/* Échelle nommée */
+--space-xs:4px;
+--space-sm:8px;
+--space-md:12px;
+--space-lg:16px;
+--space-xl:24px;
+--space-2xl:32px;
+--space-3xl:48px;
+--space-4xl:64px;
+
+/* Échelle numérique (alias historique DailyApps) */
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;
+
+/* Plancher de padding interne */
+--padding-min:8px;
+
+/* Gabarit */
+--page-margin:40px;
+--container-max:1200px;
+--layout-width:1920px;
+--mobile-margin:16px;
+--mobile-safe-top:44px;
+--mobile-safe-bottom:79px;
+
+/* Hauteurs de composants interactifs — seule exception à la grille de 4 avec la typo */
+--control-30:30px;--control-36:36px;--control-40:40px;--control-48:48px;
+--btn-h-xs:30px;--btn-h-sm:30px;--btn-h-md:36px;--btn-h-lg:40px;--btn-h-xl:48px;
+--input-h-sm:36px;--input-h-md:40px;--input-h-lg:48px;
+
+/* Icônes — S / M / L */
+--icon-xs:16px;--icon-sm:20px;--icon-md:24px;--icon-lg:32px;--icon-xl:40px;
+--icon-s:16px;--icon-m:20px;--icon-l:24px;
+
+/* Avatars */
+--avatar-xs:24px;--avatar-sm:32px;--avatar-md:40px;--avatar-lg:56px;--avatar-xl:80px;
+}

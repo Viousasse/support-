@@ -1,0 +1,34 @@
+/* Couleurs fonctionnelles XEFI.
+   La rampe rouge est construite depuis le rouge extincteur de la charte : red-500 EST #E10600,
+   les teintes claires sont des mélanges au blanc, les foncées des assombrissements.
+   Le bleu #1473E6 est réservé aux liens et au focus des champs — jamais au rouge.
+   Les accents 50/100 (fond pâle + couleur pleine) ne servent qu'aux statuts et notifications. */
+:root{
+/* Rampe primaire — rouge extincteur */
+--red-50:#FCEBEB;--red-100:#F7BCBA;--red-200:#F4A09E;--red-300:#ED6A66;--red-400:#E94C47;
+--red-500:#E10600;--red-600:#CD0500;--red-700:#A00400;--red-800:#7C0300;--red-900:#5F0300;
+/* Gris d'interface */
+--grey-50:#F2F2F2;--grey-100:#D3D3D3;--grey-200:#BDBDBD;--grey-300:#9F9F9F;--grey-400:#8D8D8D;
+--grey-500:#707070;--grey-600:#666666;--grey-700:#505050;--grey-800:#3E3E3E;--grey-900:#2F2F2F;
+/* Accents 50/100 — paires fond clair / couleur pleine */
+--accent-grey-50:#EEEEEE;--accent-grey-100:#909090;
+--cyan-50:#E7F3FA;--cyan-100:#5FAEDB;
+--blue-50:#C4DCF9;--blue-100:#0C56B0;
+--green-50:#E4F5E8;--green-100:#49B969;
+--green2-50:#E7F6EE;--green2-100:#078044;
+--yellow-50:#FFEED3;--yellow-100:#FC9803;
+--orange-50:#FEE7DB;--orange-100:#FB5607;
+--accent-red-50:#FDE2E2;--accent-red-100:#EF3A40;
+--red2-50:#F6D9DA;--red2-100:#C1040A;
+--purple-50:#EEE4FD;--purple-100:#8F4AF1;
+/* Variantes lisibles des accents — mêmes teintes, assombries pour atteindre 4,5:1 sur leur
+   fond 50 (RGAA). Les valeurs 100 ci-dessus restent celles des planches source et servent
+   aux aplats, points, barres et bordures ; ces variantes -text servent au texte. */
+--green2-text:#07773F;
+--yellow-text:#9C5E02;
+--orange-text:#BC4105;
+--accent-red-text:#C22F34;
+--accent-grey-text:#6C6C6C;
+/* Base */
+--primary:#E10600;--link:#1473E6;--white:#FFFFFF;--background:#F5F5F6;--black:#000000;
+}

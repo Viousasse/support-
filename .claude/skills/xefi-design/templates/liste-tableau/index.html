@@ -1,0 +1,99 @@
+<!-- @template name="Liste filtrable" description="Recherche, filtres, datagrid et pagination — l'écran de liste le plus courant." -->
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Liste filtrable</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--surface-page);font-family:var(--font-core);color:var(--text-body)}
+.h1{font-size:var(--tittle-24-size);line-height:var(--tittle-24-line);font-weight:var(--fw-extrabold);color:var(--text-title);margin:0}
+.h3{font-size:var(--tittle-16-size);line-height:var(--tittle-16-line);font-weight:var(--fw-extrabold);color:var(--text-title);margin:0}
+.muted{font-size:12px;line-height:16px;color:var(--text-muted)}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.grow{flex:1;min-width:0}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const NS = window.XEFIDesignSystem_6d8aa5;
+
+const {Sidebar, TopBar, IconButton, Icon} = NS;
+const NAV = [
+  {id:"notes", label:"Notes de frais", icon:<Icon name="file-pen-line" size={20}/>},
+  {id:"conges", label:"Congés", icon:<Icon name="calendar-days" size={20}/>},
+  {id:"annuaire", label:"Annuaire", icon:<Icon name="users" size={20}/>},
+  {id:"documents", label:"Documents", icon:<Icon name="folder" size={20}/>},
+  {id:"validation", label:"Validation", icon:<Icon name="shield-check" size={20}/>},
+  {id:"parametrages", label:"Paramétrages", icon:<Icon name="CogOutline" size={20}/>}
+];
+function Shell({active="notes", title, children, onCta}) {
+  const [nav, setNav] = React.useState(active);
+  return (
+    <div style={{display:"flex", height:"100vh", overflow:"hidden", background:"var(--surface-page)"}}>
+      <Sidebar items={NAV} active={nav} onNavigate={setNav} onCta={onCta}
+        ctaIcon={<Icon name="Plus" size={16}/>} basePath="../../assets" />
+      <div style={{flex:1, display:"flex", flexDirection:"column", minWidth:0}}>
+        <TopBar title={title} basePath="../../assets"
+          actions={<IconButton icon={<Icon name="NotificationsStyleOutlined" size={18}/>} label="Notifications" size={36} variant="ghost" />}
+          user={<button className="da-topbar__user"><Icon name="AccountOutline" size={20}/>Antoine Fontaine<Icon name="ChevronDown" size={16}/></button>} />
+        <div style={{flex:1, overflow:"auto", padding:"var(--page-margin)"}}>{children}</div>
+      </div>
+    </div>
+  );
+}
+const {SearchInput, Select, ButtonGroup, Button, Badge, DataGrid, Pagination, Card, Tabs} = NS;
+const ROWS = [
+  {date:"12/06/2026", libelle:"Déjeuner client — Lyon", categorie:"Repas", montant:"48,50 €", statut:"validee"},
+  {date:"11/06/2026", libelle:"Billet de train Paris–Lyon", categorie:"Transport", montant:"126,00 €", statut:"soumise"},
+  {date:"09/06/2026", libelle:"Nuit d'hôtel — Bordeaux", categorie:"Hébergement", montant:"189,00 €", statut:"soumise"},
+  {date:"08/06/2026", libelle:"Péage A6", categorie:"Péage", montant:"23,40 €", statut:"corrigee"},
+  {date:"05/06/2026", libelle:"Fournitures de bureau", categorie:"Achat", montant:"64,90 €", statut:"refusee"},
+  {date:"03/06/2026", libelle:"Taxi gare — site client", categorie:"Transport", montant:"31,00 €", statut:"brouillon"},
+  {date:"02/06/2026", libelle:"Déjeuner d'équipe", categorie:"Repas", montant:"142,80 €", statut:"enpaie"}
+];
+const COLS = [
+  {key:"date", header:"DATE", width:120},
+  {key:"libelle", header:"LIBELLÉ"},
+  {key:"categorie", header:"CATÉGORIE", width:150},
+  {key:"montant", header:"MONTANT", align:"right", width:130},
+  {key:"statut", header:"STATUT", width:130}
+];
+function App() {
+  const [onglet, setOnglet] = React.useState("mes");
+  const [filtre, setFiltre] = React.useState("tous");
+  const [page, setPage] = React.useState(1);
+  const filtres = [["tous","Tous"],["soumise","Soumises"],["validee","Validées"],["refusee","Refusées"]];
+  const rows = filtre === "tous" ? ROWS : ROWS.filter(r => r.statut === filtre);
+  return (
+    <Shell title="Notes de frais">
+      <div style={{maxWidth:"var(--container-max)", margin:"0 auto", display:"flex", flexDirection:"column", gap:"var(--space-xl)"}}>
+        <div className="bar">
+          <h1 className="h1 grow">Mes dépenses</h1>
+          <Button variant="neutral" size={40} icon={<Icon name="download" size={16}/>} iconPosition="left">Exporter</Button>
+          <Button variant="primary" size={40} icon={<Icon name="Plus" size={16}/>} iconPosition="left">Créer une note</Button>
+        </div>
+        <Tabs tabs={[{label:"Mes dépenses",value:"mes"},{label:"Mon équipe",value:"equipe"},{label:"Archivées",value:"archive"}]} value={onglet} onChange={setOnglet} />
+        <Card>
+          <div style={{marginBottom:"var(--space-lg)"}}>
+            <ButtonGroup size="s" value={filtre} onChange={(id)=>{setFiltre(id); setPage(1);}}
+              items={filtres.map(([id,label]) => ({id, label}))} />
+          </div>
+          <div className="bar" style={{marginBottom:"var(--space-lg)"}}>
+            <div style={{width:280}}><SearchInput placeholder="Rechercher…" size={40} /></div>
+            <div style={{width:170}}><Select options={["Toutes catégories","Repas","Transport","Hébergement","Péage"]} placeholder="Catégorie" size={40} /></div>
+            <div style={{width:170}}><Select options={["Juin 2026","Mai 2026","Avril 2026"]} placeholder="Période" size={40} /></div>
+          </div>
+          <DataGrid columns={COLS} rows={rows}
+            renderCell={(col,row) => col.key === "statut"
+              ? <Badge status={row.statut} />
+              : <span className={col.align === "right" ? "da-grid--num" : ""}>{row[col.key]}</span>} />
+          <div className="bar" style={{marginTop:"var(--space-lg)"}}>
+            <span className="muted grow">{rows.length} dépenses · total 625,60 €</span>
+            <Pagination total={4} page={page} onChange={setPage} />
+          </div>
+        </Card>
+      </div>
+    </Shell>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

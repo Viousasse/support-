@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Elevation" subtitle="Neutral shadow ramp + the soft brand-tinted card lift" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 28px; background: var(--color-background-canvas); font-family: var(--font-sans); }
+  .row { display: flex; gap: 24px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .box { width: 96px; height: 64px; background: var(--color-background-surface); border-radius: var(--radius-md-px); }
+  .name { font-size: 11px; font-weight: 600; color: var(--color-text-primary); }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="col"><div class="box" style="box-shadow:var(--elevation-1)"></div><span class="name">elevation-1</span></div>
+  <div class="col"><div class="box" style="box-shadow:var(--elevation-2)"></div><span class="name">elevation-2</span></div>
+  <div class="col"><div class="box" style="box-shadow:var(--elevation-3)"></div><span class="name">elevation-3</span></div>
+  <div class="col"><div class="box" style="box-shadow:var(--elevation-4)"></div><span class="name">elevation-4</span></div>
+  <div class="col"><div class="box" style="box-shadow:var(--elevation-card)"></div><span class="name">card</span></div>
+</div>
+</body>
+</html>

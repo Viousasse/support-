@@ -1,0 +1,15 @@
+.da-logo{display:inline-block;height:32px}
+.da-logo img{display:block;height:100%;width:auto}
+.da-appicon{display:inline-block;border-radius:22%;overflow:hidden;line-height:0}
+.da-appicon img{display:block;width:100%;height:100%}
+.da-fileicon{display:inline-block;line-height:0}
+.da-fileicon img{display:block;width:100%;height:auto}
+.da-icon{display:inline-block;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;flex:none}
+
+/* Bascule de thème du logo : la variante fond clair et la variante fond sombre sont
+   toutes deux rendues, l'une des deux est masquée. Aucun logo n'est recolorisé.
+   Sélecteurs qualifiés par `img` : sinon `.da-logo img{display:block}` l'emporte
+   en spécificité et les deux variantes s'affichent l'une sous l'autre. */
+.da-logo img.da-logo__dark-bg{display:none}
+:root[data-theme="dark"] .da-logo img.da-logo__light-bg,.dark .da-logo img.da-logo__light-bg{display:none}
+:root[data-theme="dark"] .da-logo img.da-logo__dark-bg,.dark .da-logo img.da-logo__dark-bg{display:block}

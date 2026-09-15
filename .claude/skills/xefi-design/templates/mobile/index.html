@@ -1,0 +1,85 @@
+<!-- @template name="Écran mobile" description="Liste et saisie sur un seul écran, safe areas iOS, action pleine largeur." -->
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Mobile</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--surface-page);font-family:var(--font-core);color:var(--text-body)}
+.h1{font-size:var(--tittle-24-size);line-height:var(--tittle-24-line);font-weight:var(--fw-extrabold);color:var(--text-title);margin:0}
+.h3{font-size:var(--tittle-16-size);line-height:var(--tittle-16-line);font-weight:var(--fw-extrabold);color:var(--text-title);margin:0}
+.muted{font-size:12px;line-height:16px;color:var(--text-muted)}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.wrap{max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-xl)}
+.skel{background:var(--grey-50);border-radius:var(--radius-field);animation:pulse 1.4s var(--ease-standard) infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const NS = window.XEFIDesignSystem_6d8aa5;
+
+const {Card, Badge, Button, Input, Select, IconButton, Icon, EmptyState, Logo} = NS;
+const DEPENSES = [
+  {id:1, date:"12/06", libelle:"Déjeuner client", montant:"48,50 €", statut:"validee"},
+  {id:2, date:"11/06", libelle:"Billet de train", montant:"126,00 €", statut:"soumise"},
+  {id:3, date:"09/06", libelle:"Nuit d'hôtel", montant:"189,00 €", statut:"soumise"},
+  {id:4, date:"08/06", libelle:"Péage A6", montant:"23,40 €", statut:"brouillon"}
+];
+function App() {
+  const [vue, setVue] = React.useState("liste");
+  const [rows, setRows] = React.useState(DEPENSES);
+  const [libelle, setLibelle] = React.useState("");
+  const [montant, setMontant] = React.useState("");
+  return (
+    <div style={{height:"100vh", display:"flex", flexDirection:"column", background:"var(--white)"}}>
+      <div style={{height:"var(--mobile-safe-top)", flex:"none", background:"var(--white)"}} />
+      <div className="bar" style={{padding:"0 var(--mobile-margin) var(--space-md)", flex:"none"}}>
+        {vue === "saisie"
+          ? <IconButton icon={<Icon name="chevron-left" size={22}/>} label="Retour" size={36} variant="ghost" onClick={()=>setVue("liste")} />
+          : <Logo variant="appicon" height={28} basePath="../../assets" />}
+        <span className="grow" style={{fontSize:"var(--tittle-18-size)", fontWeight:"var(--fw-extrabold)", color:"var(--text-title)"}}>
+          {vue === "saisie" ? "Nouvelle dépense" : "Notes de frais"}</span>
+        {vue === "liste" && <IconButton icon={<Icon name="NotificationsStyleOutlined" size={20}/>} label="Notifications" size={36} variant="ghost" />}
+      </div>
+
+      <div style={{flex:1, overflow:"auto", padding:"0 var(--mobile-margin)", display:"flex", flexDirection:"column", gap:"var(--space-md)"}}>
+        {vue === "liste" ? (
+          rows.length ? rows.map(r => (
+            <Card key={r.id} flat>
+              <div className="bar">
+                <div className="grow">
+                  <div style={{fontSize:14, fontWeight:"var(--fw-extrabold)", color:"var(--text-title)"}}>{r.libelle}</div>
+                  <div className="muted" style={{marginTop:2}}>{r.date} · {r.montant}</div>
+                </div>
+                <Badge status={r.statut} />
+              </div>
+            </Card>
+          )) : <EmptyState icon={<Icon name="receipt" size={32}/>} title="Aucune note de frais" description="Créez votre première note." />
+        ) : (
+          <React.Fragment>
+            <Input label="Libellé" placeholder="Déjeuner client — Lyon" size={48} value={libelle} onChange={(e)=>setLibelle(e.target.value)} />
+            <Input label="Montant TTC" placeholder="Saisissez un montant" size={48} value={montant} onChange={(e)=>setMontant(e.target.value)} icon={<Icon name="receipt-euro" size={16}/>} />
+            <Select label="Catégorie" options={["Repas","Transport","Hébergement","Péage"]} placeholder="Sélectionnez…" size={48} />
+            <div style={{border:"1px dashed var(--grey-200)", borderRadius:"var(--radius-field)", padding:"var(--space-2xl)", textAlign:"center"}}>
+              <Icon name="camera" size={22} />
+              <div className="muted" style={{marginTop:6}}>Photographier le justificatif</div>
+            </div>
+          </React.Fragment>
+        )}
+      </div>
+
+      <div style={{flex:"none", padding:"var(--space-md) var(--mobile-margin)", borderTop:"1px solid var(--border-grid)"}}>
+        {vue === "liste"
+          ? <Button block size={48} variant="primary" icon={<Icon name="Plus" size={16}/>} iconPosition="left" onClick={()=>setVue("saisie")}>Créer une dépense</Button>
+          : <Button block size={48} variant="primary" disabled={!libelle || !montant} icon={<Icon name="Check" size={16}/>} iconPosition="left"
+              onClick={()=>{ setRows([{id:Date.now(), date:"12/06", libelle, montant: montant.replace(".",",")+" €", statut:"brouillon"}, ...rows]); setLibelle(""); setMontant(""); setVue("liste"); }}>Enregistrer</Button>}
+      </div>
+      <div style={{height:"var(--mobile-safe-bottom)", flex:"none", display:"flex", alignItems:"flex-start", justifyContent:"center", paddingTop:8}}>
+        <span style={{width:134, height:5, borderRadius:999, background:"var(--grey-900)"}} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

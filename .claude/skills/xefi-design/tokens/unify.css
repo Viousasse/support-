@@ -1,0 +1,40 @@
+/* Arbitrages de la fusion.
+   Les composants issus de DailyUp lisent la couche sémantique `--color-*`, dont la source
+   Figma faisait du NOIR l'action primaire. Le système unifié suit la charte et DailyApps :
+   l'action primaire est le rouge extincteur. Ce fichier réaligne cette couche sur le socle,
+   sans toucher aux composants. Il est importé après `dailyup-palette.css`.
+   Le bloc de thème sombre de la palette conserve sa priorité (sélecteur plus spécifique). */
+:root{
+--color-action-primary-default:var(--red-500);
+--color-action-primary-hover:var(--red-600);
+--color-action-primary-active:var(--red-700);
+--color-action-primary-disabled:var(--grey-50);
+--color-action-secondary-hover:var(--grey-50);
+--color-action-secondary-active:var(--grey-100);
+--color-text-on-action:var(--white);
+--color-icon-on-action:var(--white);
+--color-text-primary:var(--text-title);
+--color-text-secondary:var(--text-muted);
+--color-text-disabled:var(--text-disabled);
+--color-text-brand:var(--primary);
+--color-text-link:var(--link);
+--color-background-canvas:var(--background);
+--color-background-surface:var(--white);
+--color-background-surface-raised:var(--white);
+--color-background-surface-sunken:var(--grey-50);
+--color-border-default:var(--grey-100);
+--color-border-subtle:var(--grey-100);
+--color-border-strong:var(--grey-300);
+--color-border-focus:var(--link);
+--color-brand-default:var(--primary);
+--color-brand-hover:var(--red-600);
+
+/* Contraste RGAA. Les quatre couleurs de texte de feedback héritées de la palette Material
+   tombaient entre 2,15:1 et 4,36:1 sur leur surface pâle — sous le seuil de 4,5:1 pour du
+   texte normal. Mêmes teintes, assombries au premier pas conforme. Les surfaces, bordures
+   et pastilles conservent les valeurs source. */
+--color-feedback-success-text:#317C34;
+--color-feedback-error-text:#CB2D2D;
+--color-feedback-warning-text:#A85E00;
+--color-feedback-info-text:#176DC1;
+}

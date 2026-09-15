@@ -1,0 +1,82 @@
+/* Sémantique XEFI — les rôles que les composants lisent.
+   Le rouge est la couleur d'action primaire ; le bleu ne sert qu'aux liens et au focus ;
+   le noir de la charte reste la couleur de marque sur les surfaces sombres. */
+:root{
+/* Surfaces */
+--surface-page:var(--background);
+--surface-card:var(--white);
+--surface-raised:var(--white);
+--surface-subtle:var(--grey-50);
+--surface-inverse:var(--grey-900);
+--surface-brand:var(--xefi-black);
+--surface-row-hover:var(--red-50);
+--surface-selected:var(--red-50);
+--surface-scrim:rgba(0,0,0,0.35);
+
+/* Texte */
+--text-title:var(--grey-900);
+--text-body:var(--grey-800);
+--text-muted:var(--grey-500);
+--text-placeholder:var(--grey-400);
+--text-disabled:var(--grey-300);
+--text-inverse:var(--white);
+--text-brand:var(--primary);
+--text-link:var(--link);
+
+/* Bordures */
+--border-subtle:var(--grey-100);
+--border-strong:var(--grey-300);
+--border-focus:var(--link);
+--border-error:var(--primary);
+--border-grid:var(--grey-50);
+
+/* Actions */
+--action-primary-bg:var(--red-500);
+--action-primary-bg-hover:var(--red-600);
+--action-primary-bg-active:var(--red-700);
+--action-primary-text:var(--white);
+--action-secondary-bg:var(--grey-50);
+--action-secondary-text:var(--grey-800);
+--action-outline-border:var(--red-500);
+--action-outline-text:var(--red-500);
+--action-outline-bg-hover:var(--red-50);
+--action-outline-border-disabled:var(--grey-100);
+--action-neutral-border:var(--grey-100);
+--action-neutral-bg-hover:var(--grey-50);
+--action-neutral-border-disabled:var(--grey-50);
+--action-ghost-text:var(--red-500);
+--action-ghost-text-hover:var(--red-700);
+--action-disabled-bg:var(--grey-50);
+--action-disabled-text:var(--grey-300);
+--action-destructive-bg:var(--red-500);
+
+/* Statuts DailyApps — vocabulaire fermé, paire fond / texte.
+   Les couleurs de texte utilisent les variantes lisibles des accents : les valeurs 100 des
+   planches source tombaient entre 1,91:1 et 3,21:1 sur leur fond pâle. */
+--status-validee-bg:var(--green2-50);--status-validee-fg:var(--green2-text);
+--status-soumise-bg:var(--yellow-50);--status-soumise-fg:var(--yellow-text);
+--status-corrigee-bg:var(--orange-50);--status-corrigee-fg:var(--orange-text);
+--status-refusee-bg:var(--accent-red-50);--status-refusee-fg:var(--accent-red-text);
+--status-brouillon-bg:var(--accent-grey-50);--status-brouillon-fg:var(--accent-grey-text);
+--status-enpaie-bg:var(--cyan-50);--status-enpaie-fg:var(--blue-100);
+
+/* Étapes DailyUp — Création → Validation → Production → Facturation */
+--stage-creation-bg:var(--accent-grey-50);--stage-creation-fg:var(--grey-700);
+--stage-validation-bg:var(--yellow-50);--stage-validation-fg:var(--yellow-text);
+--stage-production-bg:var(--cyan-50);--stage-production-fg:var(--blue-100);
+--stage-facturation-bg:var(--green2-50);--stage-facturation-fg:var(--green2-text);
+
+/* Feedback */
+--feedback-success:var(--green2-100);
+--feedback-warning:var(--orange-100);
+--feedback-error:var(--red2-100);
+--feedback-info:var(--link);
+
+/* Interrupteur — la piste à l'arrêt est noire dans les planches source ;
+   en thème sombre elle passe au filet, sinon elle disparaît dans le fond. */
+--switch-track-off:var(--black);
+
+/* Avatar */
+--avatar-bg:var(--red-50);
+--avatar-fg:var(--red-700);
+}

@@ -1,0 +1,39 @@
+<!-- @dsCard group="Components" viewport="760x381" name="Kanban Board" subtitle="Workflow columns with draggable-style cards" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-background-canvas); font-family: var(--font-sans); }
+  .board { display: flex; gap: 16px; align-items: flex-start; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { KanbanColumn, KanbanCard, Badge, AvatarGroup } = window.XEFIDesignSystem_6d8aa5;
+function Demo() {
+  return (
+    <div className="board">
+      <KanbanColumn title="Création" count={2} accent="var(--dailyup-colors-grey-base)" onAdd={()=>{}}>
+        <KanbanCard title="Migration et informations" meta="CODIR" footer={<><Badge tone="neutral">Création</Badge><AvatarGroup people={["LV"]} /></>} onClick={()=>{}} />
+        <KanbanCard title="Vision produit" meta="DailyUp" footer={<><Badge tone="neutral">Création</Badge><AvatarGroup people={["JB","AL"]} /></>} onClick={()=>{}} />
+      </KanbanColumn>
+      <KanbanColumn title="Validation" count={1} accent="var(--dailyup-colors-amber-base)">
+        <KanbanCard title="Analyse des risques" meta="Globex" footer={<><Badge tone="warning">Validation</Badge><AvatarGroup people={["LV","JB","SR"]} /></>} onClick={()=>{}} />
+      </KanbanColumn>
+      <KanbanColumn title="Production" count={1} accent="var(--dailyup-colors-blue-base)">
+        <KanbanCard title="Comité de direction" meta="ORANGE" footer={<><Badge tone="info">Production</Badge><AvatarGroup people={["LV","MD"]} /></>} onClick={()=>{}} />
+      </KanbanColumn>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

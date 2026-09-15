@@ -1,0 +1,148 @@
+<!-- @dsCard group="Colors" viewport="760x560" name="Accent palette" subtitle="The full Vuetify / Material hue families — exact token values" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  body { margin: 0; padding: 20px; background: var(--color-background-surface); font-family: var(--font-sans); }
+  .hue { display: flex; align-items: stretch; gap: 10px; margin-bottom: 6px; }
+  .name { width: 92px; flex-shrink: 0; font-size: 11px; font-weight: 600; color: var(--color-text-primary); display: flex; align-items: center; }
+  .ramp { display: flex; flex: 1; gap: 3px; }
+  .sw { flex: 1; min-width: 0; border-radius: var(--radius-sm-px); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 3px; }
+  .sw span { font: 600 8px var(--font-data); line-height: 1; }
+  /* Tweaks panel */
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:272px;max-height:calc(100vh - 32px);display:flex;flex-direction:column;background:rgba(250,249,247,.82);color:#29261b;-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);border:.5px solid rgba(255,255,255,.6);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.18);font:11.5px/1.4 ui-sans-serif,system-ui,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 8px 10px 14px;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600}
+  .twk-x{border:0;background:transparent;color:rgba(41,38,27,.55);width:22px;height:22px;border-radius:6px;cursor:pointer;font-size:13px}
+  .twk-x:hover{background:rgba(0,0,0,.06)}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;background:rgba(0,0,0,.06)}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);transition:left .15s,width .15s}
+  .twk-seg button{position:relative;z-index:1;flex:1;border:0;background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;border-radius:6px;cursor:pointer}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;background:rgba(0,0,0,.15);cursor:pointer;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// ── compact Tweaks helper (self-contained; host edit-mode protocol) ──
+function useTweaks(defaults){
+  const [v,setV]=React.useState(defaults);
+  const setTweak=React.useCallback((k,val)=>{
+    const edits=(typeof k==='object'&&k!==null)?k:{[k]:val};
+    setV(p=>({...p,...edits}));
+    try{window.parent.postMessage({type:'__edit_mode_set_keys',edits},'*');}catch(e){}
+  },[]);
+  return [v,setTweak];
+}
+function TweaksPanel({title='Tweaks',children}){
+  const [open,setOpen]=React.useState(false);
+  React.useEffect(()=>{
+    const onMsg=(e)=>{const t=e&&e.data&&e.data.type;if(t==='__activate_edit_mode')setOpen(true);else if(t==='__deactivate_edit_mode')setOpen(false);};
+    window.addEventListener('message',onMsg);
+    try{window.parent.postMessage({type:'__edit_mode_available'},'*');}catch(e){}
+    return ()=>window.removeEventListener('message',onMsg);
+  },[]);
+  if(!open)return null;
+  const dismiss=()=>{setOpen(false);try{window.parent.postMessage({type:'__edit_mode_dismissed'},'*');}catch(e){}};
+  return (
+    <div className="twk-panel">
+      <div className="twk-hd"><b>{title}</b><button className="twk-x" onClick={dismiss}>✕</button></div>
+      <div className="twk-body">{children}</div>
+    </div>
+  );
+}
+const TweakSection=({label})=> <div className="twk-sect">{label}</div>;
+const TweakRadio=({label,value,options,onChange})=>{
+  const idx=Math.max(0,options.indexOf(value)),n=options.length;
+  return (
+    <div className="twk-row"><div className="twk-lbl"><span>{label}</span></div>
+      <div className="twk-seg">
+        <div className="twk-seg-thumb" style={{left:`calc(2px + ${idx} * (100% - 4px) / ${n})`,width:`calc((100% - 4px) / ${n})`}} />
+        {options.map(o=> <button key={o} type="button" onClick={()=>onChange(o)}>{o}</button>)}
+      </div>
+    </div>
+  );
+};
+const TweakToggle=({label,value,onChange})=>(
+  <div className="twk-row twk-row-h"><div className="twk-lbl"><span>{label}</span></div>
+    <button type="button" className="twk-toggle" data-on={value?'1':'0'} onClick={()=>onChange(!value)}><i /></button>
+  </div>
+);
+
+// ── Full Vuetify / Material Design hue families (exact 2014 spec values) ──
+const HUES = ["red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange","brown","blue-grey","grey"];
+const NO_ACCENT = new Set(["brown","blue-grey","grey"]);
+const CORE = ["lighten-4","lighten-2","base","darken-2","darken-4"];
+const FULL = ["lighten-5","lighten-4","lighten-3","lighten-2","lighten-1","base","darken-1","darken-2","darken-3","darken-4"];
+const ACCENTS = ["accent-1","accent-2","accent-3","accent-4"];
+
+const probe = document.createElement("span");
+probe.style.display = "none";
+document.body.appendChild(probe);
+function hexOf(hue, shade) {
+  probe.style.color = `var(--dailyup-colors-${hue}-${shade})`;
+  const m = getComputedStyle(probe).color.match(/\d+/g);
+  if (!m) return "";
+  return "#" + m.slice(0,3).map(n => (+n).toString(16).padStart(2,"0")).join("").toUpperCase();
+}
+const isDark = (shade) => /darken-[2-4]|accent-[34]/.test(shade);
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "shades": "full",
+  "accents": false,
+  "showHex": false
+}/*EDITMODE-END*/;
+
+function Demo() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const base = t.shades === "full" ? FULL : CORE;
+  return (
+    <div>
+      {HUES.map(hue => {
+        const shades = [...base, ...(t.accents && !NO_ACCENT.has(hue) ? ACCENTS : [])];
+        return (
+          <div className="hue" key={hue}>
+            <span className="name">{hue}</span>
+            <div className="ramp" style={{ height: t.showHex ? 30 : 22 }}>
+              {shades.map(shade => {
+                const hex = t.showHex ? hexOf(hue, shade) : "";
+                return (
+                  <div className="sw" key={shade} title={`${hue} ${shade} ${hexOf(hue,shade)}`}
+                    style={{ background: `var(--dailyup-colors-${hue}-${shade})` }}>
+                    {t.showHex && <span style={{ color: isDark(shade) ? "rgba(255,255,255,.85)" : "rgba(0,0,0,.55)" }}>{hex.replace("#","")}</span>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+      <TweaksPanel>
+        <TweakSection label="Échelle" />
+        <TweakRadio label="Nuances" value={t.shades} options={["core","full"]} onChange={(v) => setTweak("shades", v)} />
+        <TweakToggle label="Accents" value={t.accents} onChange={(v) => setTweak("accents", v)} />
+        <TweakSection label="Affichage" />
+        <TweakToggle label="Codes hex" value={t.showHex} onChange={(v) => setTweak("showHex", v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- @dsCard group="Components" viewport="700x210" name="Tag Input" subtitle="Saisie libre d'étiquettes — Entrée ou virgule pour ajouter, Retour arrière pour retirer" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+body{margin:0;padding:16px;background:var(--white);font-family:var(--font-core);color:var(--text-body)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.note{margin-top:12px;font-size:11px;line-height:16px;color:var(--text-muted)}
+kbd{font-family:var(--font-datagrid-header);font-size:10px;background:var(--grey-50);border:1px solid var(--border-subtle);border-radius:4px;padding:1px 5px;color:var(--text-body)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { TagInput } = window.XEFIDesignSystem_6d8aa5;
+function Demo(){
+  const [tags, setTags] = React.useState(["urgent", "T3", "CODIR"]);
+  const [vide, setVide] = React.useState([]);
+  return (
+    <div>
+      <div className="cols">
+        <TagInput label="Avec étiquettes" value={tags} onChange={setTags} placeholder="Ajouter une étiquette…" />
+        <TagInput label="Vide" value={vide} onChange={setVide} placeholder="Ajouter une étiquette…" />
+      </div>
+      <div className="note">Saisie libre : l'utilisateur crée ses propres étiquettes, contrairement à <strong>Combobox</strong> qui puise dans une liste fermée. <kbd>Entrée</kbd> ou <kbd>,</kbd> ajoute l'étiquette saisie, <kbd>Retour arrière</kbd> sur un champ vide retire la dernière, la croix retire une étiquette précise. Le placeholder ne s'affiche que lorsque le champ est vide — cliquer n'importe où dans le cadre donne le focus à la saisie.</div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

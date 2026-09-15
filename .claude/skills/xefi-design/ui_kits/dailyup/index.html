@@ -1,0 +1,80 @@
+<!-- @dsCard group="DailyUp App" viewport="1280x800" name="DailyUp — workspace" subtitle="Reports workspace: list → detail, search, toasts, delete modal" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DailyUp — Workspace</title>
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--color-background-canvas); }
+  #root { height: 100vh; }
+  * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="DuPrimitives.jsx"></script>
+<script type="text/babel" src="DailyUpShell.jsx"></script>
+<script type="text/babel" src="ReportsScreen.jsx"></script>
+<script type="text/babel" src="ReportDetail.jsx"></script>
+<script type="text/babel">
+const { Toast, Modal, Button, Icon, EmptyState } = window.DuKit;
+
+function App() {
+  const [nav, setNav] = React.useState("reports");
+  const [open, setOpen] = React.useState(null);     // selected report
+  const [query, setQuery] = React.useState("");
+  const [toast, setToast] = React.useState(null);
+  const [confirm, setConfirm] = React.useState(false);
+
+  const titles = { dashboard: "Tableau de bord", reports: "Rapports", meetings: "Réunions", clients: "Clients", billing: "Facturation", settings: "Paramètres" };
+
+  const fireToast = () => {
+    setToast({ tone: "brand", icon: <Icon name="CommentAlert" size={20} />, title: "Nouveau commentaire", description: "Sacha Rosenthal a commenté « Analyse des risques »." });
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  let content;
+  if (nav !== "reports") {
+    content = <div style={{ padding: 28 }}><EmptyState title={titles[nav]} description="Cette section est une démonstration. Sélectionnez « Rapports » pour explorer le flux complet." action={<Button onClick={() => setNav("reports")}>Aller aux rapports</Button>} /></div>;
+  } else if (open) {
+    content = <window.ReportDetail report={open} onBack={() => setOpen(null)}
+      onDelete={() => setConfirm(true)}
+      onComment={() => { setToast({ tone: "success", title: "Commentaire publié", description: "Votre commentaire a été ajouté au rapport." }); setTimeout(() => setToast(null), 3500); }} />;
+  } else {
+    content = <window.ReportsScreen query={query} onOpen={setOpen} />;
+  }
+
+  return (
+    <div style={{ display: "flex", height: "100%" }}>
+      <window.Sidebar active={nav} onNavigate={(id) => { setNav(id); setOpen(null); }} />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, overflow: "hidden" }}>
+        <window.Topbar title={open ? "Rapports" : titles[nav]} onSearch={setQuery} onNewToast={fireToast} />
+        <main style={{ flex: 1, overflow: "auto" }}>{content}</main>
+      </div>
+
+      {toast && (
+        <div style={{ position: "fixed", right: 24, bottom: 24, zIndex: 200, width: 420 }}>
+          <Toast {...toast} onClose={() => setToast(null)} />
+        </div>
+      )}
+
+      <Modal open={confirm} title="Supprimer ce rapport ?" onClose={() => setConfirm(false)}
+        footer={<>
+          <Button variant="secondary" onClick={() => setConfirm(false)}>Annuler</Button>
+          <Button variant="brand" onClick={() => { setConfirm(false); setOpen(null); setToast({ tone: "error", title: "Rapport supprimé", description: "Le rapport a été déplacé dans la corbeille." }); setTimeout(() => setToast(null), 3500); }}>Supprimer</Button>
+        </>}>
+        Cette action est irréversible. Le rapport et tout son historique seront définitivement supprimés.
+      </Modal>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

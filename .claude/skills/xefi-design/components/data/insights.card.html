@@ -1,0 +1,48 @@
+<!-- @dsCard group="Components" viewport="700x399" name="Stat Card, Timeline, Rating" subtitle="KPI tiles, activity feed and star rating" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 24px; background: var(--color-background-canvas); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 16px; align-items: start; }
+  .kpis { display: flex; flex-direction: column; gap: 16px; }
+  .panel { background: var(--color-background-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg-px); padding: 18px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { StatCard, Timeline, Rating, Icon } = window.XEFIDesignSystem_6d8aa5;
+function Demo() {
+  const [stars, setStars] = React.useState(4);
+  return (
+    <div className="grid">
+      <div className="kpis">
+        <StatCard label="En production" value="24" delta="+12%" trend="up" tone="info" icon={<Icon name="CogOutline" size={20} />} />
+        <StatCard label="À facturer" value="8" delta="-3%" trend="down" tone="brand" icon={<Icon name="CashCheck" size={20} />} />
+      </div>
+      <div className="panel">
+        <Timeline items={[
+          { title: "Rapport validé", meta: "2 h", tone: "success", icon: <Icon name="Check" size={16} /> },
+          { title: "Nouveau commentaire", meta: "3 h", tone: "brand", icon: <Icon name="CommentAlert" size={16} />, content: "La ligne peut être facturée." },
+          { title: "Créé par Lorick Vacher", meta: "02 fév" },
+        ]} />
+      </div>
+      <div className="panel" style={{display:'flex',flexDirection:'column',gap:12}}>
+        <span className="du-label-md">Qualité de la synthèse</span>
+        <Rating value={stars} onChange={setStars} size={26} />
+        <Rating value={3} readOnly size={18} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

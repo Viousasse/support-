@@ -1,0 +1,147 @@
+/* Thème sombre XEFI.
+   Construit sur le gris neutre de la charte : ce sont des déclinaisons de noir pur, sans
+   teinte, donc les seules cohérentes avec une identité noir + rouge. Les gris de la
+   palette DailyUp, bleutés (dérivés Material), ne servent pas ici.
+
+   Deux ajouts que la charte ne couvrait pas, et un arbitrage contre elle :
+
+   1. La rampe s'arrête à noir 90 (#191919). Un thème sombre a besoin d'un cran de plus
+      pour que les surfaces se détachent du fond. Le fond de page est donc le NOIR PUR
+      #000000 — une valeur de la charte, et le fond du splash screen DailyApps — et
+      #191919 devient la surface dominante. Noir 80 (#333333) est ajouté pour les
+      surfaces surélevées, par la règle de construction de la charte elle-même
+      (le noir décliné en pourcentages).
+
+   2. Le rouge de marque #E10600 ne tient pas comme couleur de TEXTE sur fond sombre :
+      3,54:1 sur #191919, sous le seuil RGAA. En aplat il reste valide (blanc dessus,
+      4,97:1) — le bouton primaire garde donc le rouge de la charte. Mais le texte et les
+      icônes rouges passent à red-300 (#ED6A66, 5,74:1 sur la surface).
+
+   3. Le bleu de lien #1473E6 tombe à 4,22:1. Il passe au cyan de la palette (#5FAEDB,
+      7,82:1). Le rouge reste réservé aux actions et au destructif.
+
+   Sélecteur aligné sur celui de la palette DailyUp, pour que les deux basculent ensemble.
+   Le thème clair reste le défaut. */
+
+:root[data-theme="dark"], .dark {
+/* Gris neutre de la charte, étendu d'un cran */
+--xefi-black-80:#333333;
+
+/* Surfaces */
+--background:#000000;
+--surface-page:#000000;
+--surface-card:#191919;
+--surface-raised:#333333;
+--surface-subtle:#1E1E1E;
+--surface-inverse:#E5E5E5;
+--surface-brand:#000000;
+--surface-row-hover:#2A1211;
+--surface-selected:#2A1211;
+--surface-scrim:rgba(0,0,0,0.72);
+
+/* Texte — gris de la charte */
+--text-title:#FFFFFF;
+--text-body:#E5E5E5;
+--text-muted:#B2B2B2;
+--text-placeholder:#7F7F7F;
+--text-disabled:#7F7F7F;
+--text-inverse:#191919;
+--text-brand:#ED6A66;
+--text-link:#5FAEDB;
+--link:#5FAEDB;
+
+/* Bordures */
+--border-subtle:#4C4C4C;
+--border-strong:#7F7F7F;
+--border-focus:#5FAEDB;
+--border-error:#F04A4F;
+--border-grid:#333333;
+
+/* Actions — l'aplat garde le rouge de la charte */
+--action-primary-bg:#E10600;
+--action-primary-bg-hover:#ED6A66;
+--action-primary-bg-active:#CD0500;
+--action-primary-text:#FFFFFF;
+--action-secondary-bg:#333333;
+--action-secondary-text:#E5E5E5;
+--action-outline-border:#ED6A66;
+--action-outline-text:#ED6A66;
+--action-outline-bg-hover:#2A1211;
+--action-outline-border-disabled:#4C4C4C;
+--action-neutral-border:#4C4C4C;
+--action-neutral-bg-hover:#333333;
+--action-neutral-border-disabled:#333333;
+--action-ghost-text:#ED6A66;
+--action-ghost-text-hover:#F4A09E;
+--action-disabled-bg:#1E1E1E;
+--action-disabled-text:#7F7F7F;
+--action-destructive-bg:#E10600;
+
+/* Statuts DailyApps — teinte claire sur son propre fond assombri, tous ≥ 4,6:1 */
+--status-validee-bg:#163820;--status-validee-fg:#49B969;
+--status-soumise-bg:#4C2E01;--status-soumise-fg:#FC9803;
+--status-corrigee-bg:#461802;--status-corrigee-fg:#FB5607;
+--status-refusee-bg:#371112;--status-refusee-fg:#F04A4F;
+--status-brouillon-bg:#353535;--status-brouillon-fg:#B2B2B2;
+--status-enpaie-bg:#1D3442;--status-enpaie-fg:#5FAEDB;
+
+/* Étapes DailyUp */
+--stage-creation-bg:#353535;--stage-creation-fg:#B2B2B2;
+--stage-validation-bg:#4C2E01;--stage-validation-fg:#FC9803;
+--stage-production-bg:#1D3442;--stage-production-fg:#5FAEDB;
+--stage-facturation-bg:#163820;--stage-facturation-fg:#49B969;
+
+/* Feedback */
+--feedback-success:#49B969;
+--feedback-warning:#FC9803;
+--feedback-error:#F04A4F;
+--feedback-info:#5FAEDB;
+
+/* Interrupteur */
+--switch-track-off:#4C4C4C;
+
+/* Avatar */
+--avatar-bg:#2A1211;
+--avatar-fg:#ED6A66;
+
+/* Ombres — invisibles sur fond sombre : la structure passe aux filets.
+   Les valeurs restent pour les surfaces surélevées au-dessus du noir. */
+--shadow-module:0 0 0 1px #333333;
+--shadow-module-2:0 0 0 1px #2A2A2A;
+--shadow-panel-right:-4px 0 24px rgba(0,0,0,0.7);
+--shadow-modal:0 0 40px rgba(0,0,0,0.8);
+--elevation-card:0 0 0 1px #333333;
+--focus-ring:0 0 0 3px rgba(95,174,219,0.40);
+
+/* Couche sémantique DailyUp — réalignée comme en thème clair */
+--color-action-primary-default:#E10600;
+--color-action-primary-hover:#ED6A66;
+--color-action-primary-active:#CD0500;
+--color-action-primary-disabled:#333333;
+--color-action-secondary-hover:#333333;
+--color-action-secondary-active:#4C4C4C;
+--color-text-on-action:#FFFFFF;
+--color-icon-on-action:#FFFFFF;
+--color-text-primary:#FFFFFF;
+--color-text-secondary:#B2B2B2;
+--color-text-disabled:#7F7F7F;
+--color-text-brand:#ED6A66;
+--color-text-link:#5FAEDB;
+--color-icon-default:#E5E5E5;
+--color-icon-muted:#B2B2B2;
+--color-background-canvas:#000000;
+--color-background-surface:#191919;
+--color-background-surface-raised:#333333;
+--color-background-surface-sunken:#1E1E1E;
+--color-background-overlay:#000000;
+--color-border-default:#4C4C4C;
+--color-border-subtle:#333333;
+--color-border-strong:#7F7F7F;
+--color-border-focus:#5FAEDB;
+--color-brand-default:#E10600;
+--color-brand-hover:#ED6A66;
+--color-feedback-success-surface:#163820;--color-feedback-success-text:#49B969;--color-feedback-success-border:#2A5C38;
+--color-feedback-error-surface:#371112;--color-feedback-error-text:#F04A4F;--color-feedback-error-border:#6B2426;
+--color-feedback-warning-surface:#4C2E01;--color-feedback-warning-text:#FC9803;--color-feedback-warning-border:#7A4D08;
+--color-feedback-info-surface:#1D3442;--color-feedback-info-text:#5FAEDB;--color-feedback-info-border:#2F5C74;
+}

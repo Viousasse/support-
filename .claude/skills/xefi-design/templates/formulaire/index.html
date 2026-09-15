@@ -1,0 +1,95 @@
+<!-- @template name="Formulaire de saisie" description="Sections, champs, options, message d'erreur et pied d'actions." -->
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Formulaire</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--surface-page);font-family:var(--font-core);color:var(--text-body)}
+.h1{font-size:var(--tittle-24-size);line-height:var(--tittle-24-line);font-weight:var(--fw-extrabold);color:var(--text-title);margin:0}
+.h3{font-size:var(--tittle-16-size);line-height:var(--tittle-16-line);font-weight:var(--fw-extrabold);color:var(--text-title);margin:0}
+.muted{font-size:12px;line-height:16px;color:var(--text-muted)}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.wrap{max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-xl)}
+.skel{background:var(--grey-50);border-radius:var(--radius-field);animation:p 1.4s var(--ease-standard) infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.45}}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const NS = window.XEFIDesignSystem_6d8aa5;
+
+const {Sidebar, TopBar, IconButton, Icon} = NS;
+const NAV = [
+  {id:"notes", label:"Notes de frais", icon:<Icon name="file-pen-line" size={20}/>},
+  {id:"conges", label:"Congés", icon:<Icon name="calendar-days" size={20}/>},
+  {id:"annuaire", label:"Annuaire", icon:<Icon name="users" size={20}/>},
+  {id:"documents", label:"Documents", icon:<Icon name="folder" size={20}/>},
+  {id:"validation", label:"Validation", icon:<Icon name="shield-check" size={20}/>},
+  {id:"parametrages", label:"Paramétrages", icon:<Icon name="CogOutline" size={20}/>}
+];
+function Shell({active="notes", title, children, onCta}) {
+  const [nav, setNav] = React.useState(active);
+  return (
+    <div style={{display:"flex", height:"100vh", overflow:"hidden", background:"var(--surface-page)"}}>
+      <Sidebar items={NAV} active={nav} onNavigate={setNav} onCta={onCta}
+        ctaIcon={<Icon name="Plus" size={16}/>} basePath="../../assets" />
+      <div style={{flex:1, display:"flex", flexDirection:"column", minWidth:0}}>
+        <TopBar title={title} basePath="../../assets"
+          actions={<IconButton icon={<Icon name="NotificationsStyleOutlined" size={18}/>} label="Notifications" size={36} variant="ghost" />}
+          user={<button className="da-topbar__user"><Icon name="AccountOutline" size={20}/>Antoine Fontaine<Icon name="ChevronDown" size={16}/></button>} />
+        <div style={{flex:1, overflow:"auto", padding:"var(--page-margin)"}}>{children}</div>
+      </div>
+    </div>
+  );
+}
+const {Card, Input, Select, Checkbox, Radio, Switch, Button, Alert} = NS;
+function App() {
+  const [montant, setMontant] = React.useState("");
+  const [erreur, setErreur] = React.useState(false);
+  const [mode, setMode] = React.useState("paie");
+  return (
+    <Shell title="Nouvelle dépense">
+      <div className="wrap" style={{maxWidth:840}}>
+        <div><h1 className="h1">Créer une dépense</h1><div className="muted" style={{marginTop:4}}>Les champs marqués d'un astérisque sont obligatoires.</div></div>
+        {erreur && <Alert tone="error" title="Montant invalide" onClose={()=>setErreur(false)}>Saisissez un montant supérieur à zéro.</Alert>}
+        <Card title="Dépense">
+          <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"var(--space-lg)", marginTop:"var(--space-lg)"}}>
+            <Input label="Libellé *" placeholder="Déjeuner client — Lyon" size={40} />
+            <Select label="Catégorie *" options={["Repas","Transport","Hébergement","Péage","Achat"]} placeholder="Sélectionnez…" size={40} />
+            <Input label="Montant TTC *" placeholder="Saisissez un montant" size={40} value={montant}
+              onChange={(e)=>{setMontant(e.target.value); setErreur(false);}}
+              error={erreur ? "Montant invalide" : undefined} icon={<Icon name="receipt-euro" size={16}/>} />
+            <Select label="TVA" options={["5,5 %","10 %","20 %"]} placeholder="Sélectionnez…" size={40} />
+            <Input label="Date *" placeholder="12/06/2026" size={40} icon={<Icon name="calendar" size={16}/>} />
+            <Select label="Société" options={["XEFI BORDEAUX EST","XEFI LONS"]} placeholder="Sélectionnez…" size={40} />
+          </div>
+        </Card>
+        <Card title="Justificatif">
+          <div style={{border:"1px dashed var(--grey-200)", borderRadius:"var(--radius-field)", padding:"var(--space-2xl)", textAlign:"center", marginTop:"var(--space-lg)"}}>
+            <Icon name="camera" size={24} />
+            <div className="muted" style={{marginTop:6}}>Déposez un fichier ou photographiez le justificatif</div>
+          </div>
+        </Card>
+        <Card title="Options">
+          <div style={{display:"flex", flexDirection:"column", gap:"var(--space-md)", marginTop:"var(--space-lg)"}}>
+            <Checkbox label="Dépense refacturable au client" />
+            <Checkbox label="Payée par carte affaires" defaultChecked />
+            <div className="bar" style={{gap:"var(--space-xl)"}}>
+              <Radio name="mode" value="paie" label="Remboursement en paie" checked={mode==="paie"} onChange={()=>setMode("paie")} />
+              <Radio name="mode" value="virement" label="Virement" checked={mode==="virement"} onChange={()=>setMode("virement")} />
+            </div>
+            <Switch label="Me notifier après validation" />
+          </div>
+        </Card>
+        <div className="bar" style={{justifyContent:"flex-end"}}>
+          <Button variant="ghost" size={40}>Annuler</Button>
+          <Button variant="neutral" size={40}>Enregistrer en brouillon</Button>
+          <Button variant="primary" size={40} onClick={()=>setErreur(!montant)} icon={<Icon name="Check" size={16}/>} iconPosition="left">Valider</Button>
+        </div>
+      </div>
+    </Shell>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

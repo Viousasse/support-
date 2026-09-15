@@ -1,0 +1,17 @@
+/* Rayons XEFI — deux valeurs et la pilule.
+   8 px : tout ce qui se saisit ou se clique (champs, boutons, menus, notifications).
+   16 px : les contenants (cartes, modules, modales).  999 : badges, chips, avatars.
+   Exception : les cases à cocher sont à 4 px. */
+:root{
+--radius-field:8px;
+--radius-module:16px;
+--radius-pill:999px;
+--radius-check:4px;
+/* Alias DailyUp */
+--radius-xs:2px;
+--radius-sm-px:4px;
+--radius-md-px:8px;
+--radius-lg-px:16px;
+--radius-xl-px:24px;
+--radius-pill-px:9999px;
+}
