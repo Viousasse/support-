@@ -4,6 +4,7 @@ return [
     'heading' => 'Connexion',
     'email' => 'Adresse e-mail',
     'password' => 'Mot de passe',
+    'email_placeholder' => 'Saisissez votre adresse e-mail',
     'submit' => 'Se connecter',
     'sign_out' => 'Se déconnecter',
     'failed' => 'Ces identifiants ne correspondent pas à nos enregistrements.',

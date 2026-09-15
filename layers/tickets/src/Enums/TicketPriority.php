@@ -37,8 +37,8 @@ enum TicketPriority: string
     {
         return match ($this) {
             self::Low => 'muted',
-            self::Normal => 'neutral',
-            self::High => 'accent',
+            self::Normal => 'info',
+            self::High => 'progress',
             self::Critical => 'danger',
         };
     }

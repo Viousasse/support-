@@ -4,6 +4,7 @@ return [
     'heading' => 'Sign in',
     'email' => 'Email address',
     'password' => 'Password',
+    'email_placeholder' => 'Enter your email address',
     'submit' => 'Sign in',
     'sign_out' => 'Sign out',
     'failed' => 'These credentials do not match our records.',

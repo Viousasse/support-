@@ -3,29 +3,74 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/*
+ * Tokens of the XEFI 2025 brand guidelines, taken from the design system:
+ * one identity colour, black, white and a neutral grey. No gradient anywhere.
+ */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-serif: Cambria, Georgia, ui-serif, serif;
-    --font-mono: 'Courier New', ui-monospace, monospace;
+    --font-sans: Montserrat, 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+    --font-display: Montserrat, 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
 
-    /* Palette read from the XEFI Academy course material. */
-    --color-brand-50: #fbefee;
-    --color-brand-200: #f3c9b6;
-    --color-brand-400: #e8703a;
-    --color-brand-600: #c1440e;
-    --color-brand-800: #a3241b;
+    --color-red-50: #fcebeb;
+    --color-red-100: #f7bcba;
+    --color-red-200: #f4a09e;
+    --color-red-300: #ed6a66;
+    --color-red-400: #e94c47;
+    --color-red-500: #e10600;
+    --color-red-600: #cd0500;
+    --color-red-700: #a00400;
+    --color-red-800: #7c0300;
+    --color-red-900: #5f0300;
 
-    --color-ink-900: #17171c;
-    --color-ink-700: #24242c;
-    --color-ink-500: #6a6a73;
-    --color-ink-300: #b9b9c2;
-    --color-ink-200: #d5d5dc;
+    --color-grey-50: #f2f2f2;
+    --color-grey-100: #d3d3d3;
+    --color-grey-200: #bdbdbd;
+    --color-grey-300: #9f9f9f;
+    --color-grey-400: #8d8d8d;
+    --color-grey-500: #707070;
+    --color-grey-600: #666666;
+    --color-grey-700: #505050;
+    --color-grey-800: #3e3e3e;
+    --color-grey-900: #2f2f2f;
 
-    --color-sand-50: #ffffff;
-    --color-sand-100: #f4f1ee;
-    --color-sand-200: #e9e3dc;
+    --color-page: #f5f5f6;
+    --color-link: #1473e6;
 
-    --color-leaf-50: #eef4f0;
-    --color-leaf-700: #2f6b47;
+    --color-tone-grey-bg: #eeeeee;
+    --color-tone-grey-fg: #6c6c6c;
+    --color-tone-red-bg: #fde2e2;
+    --color-tone-red-fg: #c22f34;
+    --color-tone-green-bg: #e7f6ee;
+    --color-tone-green-fg: #07773f;
+    --color-tone-orange-bg: #fee7db;
+    --color-tone-orange-fg: #bc4105;
+    --color-tone-cyan-bg: #e7f3fa;
+    --color-tone-blue-fg: #0c56b0;
+
+    --radius-field: 8px;
+    --radius-module: 16px;
+
+    --shadow-module: 0 0 30px rgb(0 0 0 / 0.1);
+    --shadow-module-2: 0 0 8px rgb(112 112 112 / 0.05);
+}
+
+/* 8 px on anything typed into or clicked, 16 px on containers. */
+@utility rounded-field {
+    border-radius: var(--radius-field);
+}
+
+@utility rounded-module {
+    border-radius: var(--radius-module);
+}
+
+/* Blue is reserved for links and field focus, never red. */
+@layer base {
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+        outline: 2px solid var(--color-link);
+        outline-offset: 2px;
+    }
 }

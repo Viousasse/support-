@@ -50,7 +50,8 @@ enum TicketStatus: string
     {
         return match ($this) {
             self::Open => 'neutral',
-            self::Assigned, self::InProgress => 'info',
+            self::Assigned => 'info',
+            self::InProgress => 'progress',
             self::Resolved => 'success',
             self::Closed => 'muted',
         };
