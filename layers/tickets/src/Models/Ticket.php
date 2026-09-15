@@ -3,6 +3,7 @@
 namespace Layers\Tickets\Models;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
@@ -14,12 +15,18 @@ use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Enums\TicketStatus;
 use Lomkit\Access\Controls\HasControl;
 
-class Ticket extends Model
+final class Ticket extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Prunable;
     use HasControl;
+
+    /** @use HasFactory<TicketFactory> */
+    use HasFactory;
+
+    use Prunable;
+    use SoftDeletes;
+
+    public const RETENTION_DAYS = 30;
+
     protected $fillable = [
         'requester_id',
         'assigned_technician_id',
@@ -28,6 +35,7 @@ class Ticket extends Model
         'status',
         'priority',
         'resolved_at',
+        'sla_met',
     ];
 
     protected function casts(): array
@@ -36,28 +44,55 @@ class Ticket extends Model
             'status' => TicketStatus::class,
             'priority' => TicketPriority::class,
             'resolved_at' => 'datetime',
+            'sla_met' => 'boolean',
         ];
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function requester(): BelongsTo
     {
         return $this->belongsTo(User::class, 'requester_id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function assignedTechnician(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_technician_id');
     }
 
+    /**
+     * @return HasMany<Comment, $this>
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
-    public function prunable(): \Illuminate\Database\Eloquent\Builder
+    /**
+     * @return HasMany<Attachment, $this>
+     */
+    public function attachments(): HasMany
     {
-        return static::onlyTrashed()
-            ->where('deleted_at', '<=', now()->subDays(30));
+        return $this->hasMany(Attachment::class);
+    }
+
+    public function pruning(): void
+    {
+        $this->attachments()->delete();
+        $this->comments()->delete();
+    }
+
+    /**
+     * @return Builder<static>
+     */
+    public function prunable(): Builder
+    {
+        return self::onlyTrashed()
+            ->where('deleted_at', '<=', now()->subDays(self::RETENTION_DAYS));
     }
 
     protected static function newFactory(): TicketFactory

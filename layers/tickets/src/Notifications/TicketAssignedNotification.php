@@ -7,15 +7,15 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Layers\Tickets\Models\Ticket;
 
-class TicketAssignedNotification extends Notification
+final class TicketAssignedNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(
-        public Ticket $ticket,
-    ) {
-    }
+    public function __construct(public readonly Ticket $ticket) {}
 
+    /**
+     * @return array<int, string>
+     */
     public function via(object $notifiable): array
     {
         return ['mail'];
@@ -23,7 +23,7 @@ class TicketAssignedNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject(__('tickets.notifications.assigned.subject'))
             ->line(__('tickets.notifications.assigned.introduction'))
             ->line(__('tickets.notifications.assigned.ticket_title', [
@@ -31,7 +31,7 @@ class TicketAssignedNotification extends Notification
             ]))
             ->action(
                 __('tickets.notifications.assigned.action'),
-                url("/tickets/{$this->ticket->id}"),
+                route('tickets.index'),
             );
     }
 }

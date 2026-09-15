@@ -2,14 +2,15 @@
 
 namespace App\Rest\Controllers;
 
-use App\Rest\Controllers\Controller;
+use App\Rest\Resources\TicketResource;
+use Lomkit\Rest\Http\Resource;
 
-class TicketController extends Controller
+final class TicketController extends Controller
 {
     /**
      * The resource the controller corresponds to.
      *
      * @var class-string<\Lomkit\Rest\Http\Resource>
      */
-    public static $resource = \App\Rest\Resources\TicketResource::class;
+    public static $resource = TicketResource::class;
 }

@@ -2,55 +2,59 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Layers\Tickets\Enums\TicketPermission;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
-class PermissionSeeder extends Seeder
+final class PermissionSeeder extends Seeder
 {
+    public const REQUESTER = 'requester';
+
+    public const TECHNICIAN = 'technician';
+
+    public const MANAGER = 'manager';
+
     public function run(): void
     {
-        $permissions = [
-            'view own tickets',
-            'view assigned tickets',
-            'view all tickets',
-            'create tickets',
-            'assign tickets',
-            'close tickets',
-        ];
-
-        foreach ($permissions as $permission) {
-            Permission::findOrCreate($permission);
+        foreach (TicketPermission::cases() as $permission) {
+            Permission::findOrCreate($permission->value);
         }
 
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $requester = Role::findOrCreate('requester');
-        $requester->syncPermissions([
-            'view own tickets',
-            'create tickets',
-        ]);
+        $this->seedProfile(self::REQUESTER, [
+            TicketPermission::ViewOwn,
+            TicketPermission::Create,
+        ], 2);
 
-        $technician = Role::findOrCreate('technician');
-        $technician->syncPermissions([
-            'view assigned tickets',
-        ]);
+        $this->seedProfile(self::TECHNICIAN, [
+            TicketPermission::ViewAssigned,
+        ], 2);
 
-        $manager = Role::findOrCreate('manager');
-        $manager->syncPermissions([
-            'view all tickets',
-            'assign tickets',
-            'close tickets',
-        ]);
+        $this->seedProfile(self::MANAGER, [
+            TicketPermission::ViewAny,
+            TicketPermission::Assign,
+            TicketPermission::Close,
+        ], 1);
+    }
 
-        $requesterUser = \App\Models\User::factory()->create(['name' => 'Alice Requester']);
-        $requesterUser->assignRole('requester');
+    /**
+     * @param  array<int, TicketPermission>  $permissions
+     */
+    private function seedProfile(string $role, array $permissions, int $users): void
+    {
+        Role::findOrCreate($role)
+            ->syncPermissions(array_map(
+                fn (TicketPermission $permission): string => $permission->value,
+                $permissions,
+            ));
 
-        $technicianUser = \App\Models\User::factory()->create(['name' => 'Bob Technician']);
-        $technicianUser->assignRole('technician');
-
-        $managerUser = \App\Models\User::factory()->create(['name' => 'Carla Manager']);
-        $managerUser->assignRole('manager');
+        User::factory()
+            ->count($users)
+            ->create()
+            ->each(fn (User $user) => $user->assignRole($role));
     }
 }

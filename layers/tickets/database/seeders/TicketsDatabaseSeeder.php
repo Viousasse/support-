@@ -3,59 +3,67 @@
 namespace Layers\Tickets\Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use Layers\Tickets\Actions\AttachFileToTicket;
 use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Enums\TicketStatus;
+use Layers\Tickets\Models\Attachment;
 use Layers\Tickets\Models\Comment;
 use Layers\Tickets\Models\Ticket;
 
-class TicketsDatabaseSeeder extends Seeder
+final class TicketsDatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $requester = User::where('name', 'Alice Requester')->first() ?? User::factory()->create();
-        $technician = User::where('name', 'Bob Technician')->first() ?? User::factory()->create();
-        $manager = User::where('name', 'Carla Manager')->first() ?? User::factory()->create();
+        $requesters = User::role(PermissionSeeder::REQUESTER)->get();
+        $technicians = User::role(PermissionSeeder::TECHNICIAN)->get();
 
-        foreach (TicketStatus::cases() as $index => $status) {
-            $ticket = Ticket::factory()
-                ->state([
-                    'requester_id' => $requester->id,
-                    'assigned_technician_id' => $status === TicketStatus::Open
-                        ? null
-                        : $technician->id,
-                    'status' => $status,
-                    'priority' => TicketPriority::cases()[
-                        $index % count(TicketPriority::cases())
-                    ],
-                    'resolved_at' => in_array(
-                        $status,
-                        [TicketStatus::Resolved, TicketStatus::Closed],
-                        true,
-                    )
-                        ? now()
-                        : null,
-                ])
-                ->create();
+        $seeded = 0;
 
-            Comment::factory()
-                ->count(2)
-                ->state([
-                    'ticket_id' => $ticket->id,
-                    'author_id' => $requester->id,
-                ])
-                ->create();
+        foreach (TicketStatus::cases() as $status) {
+            foreach (TicketPriority::cases() as $priority) {
+                $requester = $requesters[$seeded % $requesters->count()];
+                $technician = $technicians[$seeded % $technicians->count()];
+                $seeded++;
+
+                $ticket = Ticket::factory()
+                    ->withStatus($status)
+                    ->withPriority($priority)
+                    ->create([
+                        'requester_id' => $requester->getKey(),
+                        'assigned_technician_id' => $status === TicketStatus::Open
+                            ? null
+                            : $technician->getKey(),
+                    ]);
+
+                Comment::factory()
+                    ->count(2)
+                    ->create([
+                        'ticket_id' => $ticket->getKey(),
+                        'author_id' => $requester->getKey(),
+                    ]);
+
+                $this->seedAttachment($ticket->getKey(), $requester->getKey());
+            }
         }
+    }
 
-        foreach (TicketPriority::cases() as $priority) {
-            Ticket::factory()
-                ->assigned()
-                ->state([
-                    'requester_id' => $requester->id,
-                    'assigned_technician_id' => $technician->id,
-                    'priority' => $priority,
-                ])
-                ->create();
-        }
+    private function seedAttachment(int $ticketId, int $uploaderId): void
+    {
+        $path = 'tickets/'.$ticketId.'/specification.txt';
+
+        Storage::disk(AttachFileToTicket::DISK)->put($path, faker()->paragraphs(paragraphs: 1));
+
+        Attachment::factory()->create([
+            'ticket_id' => $ticketId,
+            'uploaded_by_id' => $uploaderId,
+            'disk' => AttachFileToTicket::DISK,
+            'path' => $path,
+            'name' => 'specification.txt',
+            'mime_type' => 'text/plain',
+            'size' => Storage::disk(AttachFileToTicket::DISK)->size($path),
+        ]);
     }
 }

@@ -10,21 +10,32 @@ enum TicketStatus: string
     case Resolved = 'resolved';
     case Closed = 'closed';
 
-    public function canTransitionTo(self $to): bool
+    public function canTransitionTo(self $status): bool
+    {
+        return in_array($status, $this->allowedTransitions(), true);
+    }
+
+    public function isTerminal(): bool
+    {
+        return $this->allowedTransitions() === [];
+    }
+
+    /**
+     * @return array<int, self>
+     */
+    public function allowedTransitions(): array
     {
         return match ($this) {
-            self::Open => $to === self::Assigned,
-
-            self::Assigned => $to === self::InProgress
-                || $to === self::Open,
-
-            self::InProgress => $to === self::Resolved
-                || $to === self::Assigned,
-
-            self::Resolved => $to === self::Closed
-                || $to === self::InProgress,
-
-            self::Closed => false,
+            self::Open => [self::Assigned],
+            self::Assigned => [self::InProgress, self::Open],
+            self::InProgress => [self::Resolved, self::Assigned],
+            self::Resolved => [self::Closed, self::InProgress],
+            self::Closed => [],
         };
+    }
+
+    public function translationKey(): string
+    {
+        return "tickets.status.{$this->value}";
     }
 }

@@ -1,12 +1,21 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
+use App\Livewire\Auth\Login;
+use App\Livewire\Tickets\TicketForm;
+use App\Livewire\Tickets\TicketList;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\TicketList;
-use App\Livewire\SimpleTest;
 
-Route::get('/test', fn () => 'OK');
+Route::redirect('/', '/tickets');
 
-Route::get('/tickets', TicketList::class);
-Route::get('/debug', fn () => 'HELLO');
-Route::get('/test-view', fn () => view('test-view'));
-Route::get('/livewire-test', SimpleTest::class);
+Route::middleware('guest')->group(function (): void {
+    Route::livewire('/login', Login::class)->name('login');
+});
+
+Route::middleware('auth')->group(function (): void {
+    Route::post('/logout', LogoutController::class)->name('logout');
+
+    Route::livewire('/tickets', TicketList::class)->name('tickets.index');
+    Route::livewire('/tickets/create', TicketForm::class)->name('tickets.create');
+    Route::livewire('/tickets/{ticket}/edit', TicketForm::class)->name('tickets.edit');
+});

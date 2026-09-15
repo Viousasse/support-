@@ -2,81 +2,73 @@
 
 namespace App\Rest\Resources;
 
-use App\Rest\Resources\Resource;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Lomkit\Rest\Actions\Action;
 use Lomkit\Rest\Concerns\Resource\DisableAuthorizations;
-class UserResource extends Resource
+use Lomkit\Rest\Http\Requests\RestRequest;
+use Lomkit\Rest\Instructions\Instruction;
+use Lomkit\Rest\Relations\Relation;
+
+final class UserResource extends Resource
 {
     use DisableAuthorizations;
+
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     * @var class-string<Model>
      */
-    public static $model = \App\Models\User::class;
+    public static $model = User::class;
 
     /**
-     * The exposed fields that could be provided
-     * @param RestRequest $request
-     * @return array
+     * @return array<int, string>
      */
-    public function fields(\Lomkit\Rest\Http\Requests\RestRequest $request): array
+    public function fields(RestRequest $request): array
     {
         return [
             'id',
             'name',
-            'email',
         ];
     }
 
     /**
-     * The exposed relations that could be provided
-     * @param RestRequest $request
-     * @return array
+     * @return array<int, Relation>
      */
-    public function relations(\Lomkit\Rest\Http\Requests\RestRequest $request): array
+    public function relations(RestRequest $request): array
     {
         return [];
     }
 
     /**
-     * The exposed scopes that could be provided
-     * @param RestRequest $request
-     * @return array
+     * @return array<int, string>
      */
-    public function scopes(\Lomkit\Rest\Http\Requests\RestRequest $request): array
+    public function scopes(RestRequest $request): array
     {
         return [];
     }
 
     /**
-     * The exposed limits that could be provided
-     * @param RestRequest $request
-     * @return array
+     * @return array<int, int>
      */
-    public function limits(\Lomkit\Rest\Http\Requests\RestRequest $request): array
+    public function limits(RestRequest $request): array
     {
-        return [
-            10,
-            25,
-            50
-        ];
+        return [10, 25, 50];
     }
 
     /**
-     * The actions that should be linked
-     * @param RestRequest $request
-     * @return array
+     * @return array<int, Action>
      */
-    public function actions(\Lomkit\Rest\Http\Requests\RestRequest $request): array {
+    public function actions(RestRequest $request): array
+    {
         return [];
     }
 
     /**
-     * The instructions that should be linked
-     * @param RestRequest $request
-     * @return array
+     * @return array<int, Instruction>
      */
-    public function instructions(\Lomkit\Rest\Http\Requests\RestRequest $request): array {
+    public function instructions(RestRequest $request): array
+    {
         return [];
     }
 }

@@ -18,4 +18,9 @@ enum TicketPriority: string
             self::Critical => 2,
         };
     }
+
+    public function translationKey(): string
+    {
+        return "tickets.priority.{$this->value}";
+    }
 }

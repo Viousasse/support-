@@ -2,6 +2,13 @@
     "name": "support/tickets",
     "description": "Ticketing domain layer",
     "type": "library",
+    "require": {
+        "php": "^8.3",
+        "laravel/framework": "^13.17",
+        "lomkit/laravel-access-control": "^0.5.0",
+        "spatie/laravel-permission": "^8.3",
+        "xefi/faker-php-laravel": "^1.2"
+    },
     "autoload": {
         "psr-4": {
             "Layers\\Tickets\\": "src/",

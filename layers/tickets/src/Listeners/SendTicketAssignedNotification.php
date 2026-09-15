@@ -5,7 +5,7 @@ namespace Layers\Tickets\Listeners;
 use Layers\Tickets\Events\TicketAssigned;
 use Layers\Tickets\Notifications\TicketAssignedNotification;
 
-class SendTicketAssignedNotification
+final class SendTicketAssignedNotification
 {
     public function handle(TicketAssigned $event): void
     {

@@ -7,14 +7,13 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Layers\Tickets\Models\Ticket;
 
-class TicketAssigned
+final class TicketAssigned
 {
     use Dispatchable;
     use SerializesModels;
 
     public function __construct(
-        public Ticket $ticket,
-        public User $technician,
-    ) {
-    }
+        public readonly Ticket $ticket,
+        public readonly User $technician,
+    ) {}
 }
