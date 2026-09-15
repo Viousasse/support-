@@ -80,6 +80,11 @@ return [
     ],
 
     'notifications' => [
+        'channels' => [
+            'urgency' => 'Notification de ticket urgent',
+            'alert' => 'Alerte de ticket critique',
+        ],
+
         'escalated' => [
             'subject' => 'Un ticket a dépassé sa cible',
             'introduction' => 'Le ticket « :title » a dépassé son délai de résolution.',
