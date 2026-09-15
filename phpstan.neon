@@ -36,3 +36,8 @@ parameters:
         -
             identifier: xefi.noTryCatch
             path: app/Livewire/Tickets/TicketForm.php
+        # Same boundary for the MCP tool: a refused transition has to reach the
+        # agent as an exploitable error rather than a generic server failure.
+        -
+            identifier: xefi.noTryCatch
+            path: app/Mcp/Tools/AssignTicketTool.php

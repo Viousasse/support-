@@ -6,13 +6,14 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 use Layers\Tickets\Actions\AssignTicket;
 use Layers\Tickets\Actions\AttachFileToTicket;
+use Layers\Tickets\Actions\CreateTicket;
 use Layers\Tickets\Enums\TicketPermission;
 use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Exceptions\InvalidTicketStatusTransitionException;
 use Layers\Tickets\Models\Ticket;
+use Layers\Tickets\Validation\TicketRules;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -53,11 +54,7 @@ final class TicketForm extends Component
      */
     public function rules(): array
     {
-        return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'priority' => ['required', Rule::enum(TicketPriority::class)],
-        ];
+        return TicketRules::forCreation();
     }
 
     /**
@@ -65,25 +62,17 @@ final class TicketForm extends Component
      */
     public function messages(): array
     {
-        return [
-            'title.required' => __('tickets.validation.title_required'),
-            'title.max' => __('tickets.validation.title_max'),
-            'description.required' => __('tickets.validation.description_required'),
-            'priority.required' => __('tickets.validation.priority_required'),
-            'priority.enum' => __('tickets.validation.priority_enum'),
-        ];
+        return TicketRules::messages();
     }
 
-    public function save(): void
+    public function save(CreateTicket $action): void
     {
         $attributes = $this->validate();
 
         if ($this->ticket === null) {
             Gate::authorize('create', Ticket::class);
 
-            $this->ticket = Ticket::create($attributes + [
-                'requester_id' => auth()->id(),
-            ]);
+            $this->ticket = $action->execute($attributes, auth()->user());
 
             session()->flash('status', __('tickets.messages.created'));
 

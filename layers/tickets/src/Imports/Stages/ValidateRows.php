@@ -4,9 +4,8 @@ namespace Layers\Tickets\Imports\Stages;
 
 use Closure;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Imports\TicketImportPayload;
+use Layers\Tickets\Validation\TicketRules;
 
 final class ValidateRows
 {
@@ -15,12 +14,9 @@ final class ValidateRows
         $accepted = [];
 
         foreach ($payload->rows as $row) {
-            $validator = Validator::make($row, [
-                'title' => ['required', 'string', 'max:255'],
-                'description' => ['required', 'string'],
-                'priority' => ['required', Rule::enum(TicketPriority::class)],
+            $validator = Validator::make($row, TicketRules::forCreation() + [
                 'requester_email' => ['required', 'email'],
-            ]);
+            ], TicketRules::messages());
 
             $validator->fails()
                 ? $payload->reject($row['line'], (string) $validator->errors()->first())
