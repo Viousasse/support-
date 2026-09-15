@@ -4,6 +4,7 @@ namespace App\Livewire\Tickets;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Layers\Tickets\Broadcasting\TicketAudience;
 use Layers\Tickets\Enums\TicketPriority;
 use Layers\Tickets\Enums\TicketStatus;
 use Layers\Tickets\Models\Ticket;
@@ -29,6 +30,20 @@ final class TicketList extends Component
     public string $sortColumn = 'created_at';
 
     public string $sortDirection = self::DESCENDING;
+
+    /**
+     * The component only listens on the channel of the signed in user, and the
+     * domain event is only published to the channels of those allowed to see
+     * the ticket.
+     *
+     * @return array<string, string>
+     */
+    public function getListeners(): array
+    {
+        return [
+            'echo-private:'.TicketAudience::channelFor((int) auth()->id()).',.TicketAssigned' => '$refresh',
+        ];
+    }
 
     public function updatedStatus(): void
     {

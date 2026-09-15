@@ -24,7 +24,7 @@ parameters:
         - layers/tickets/database/migrations
 
     stubFiles:
-        - faker_mixin.php
+        - phpstan/faker-mixin.stub.php
 
     ignoreErrors:
         # controlled() is a query builder macro registered by lomkit/laravel-access-control.
