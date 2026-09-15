@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Layers\Tickets\Enums\TicketPermission;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -16,6 +17,8 @@ final class PermissionSeeder extends Seeder
     public const TECHNICIAN = 'technician';
 
     public const MANAGER = 'manager';
+
+    public const DOMAIN = 'support.test';
 
     public function run(): void
     {
@@ -52,9 +55,13 @@ final class PermissionSeeder extends Seeder
                 $permissions,
             ));
 
-        User::factory()
-            ->count($users)
-            ->create()
-            ->each(fn (User $user) => $user->assignRole($role));
+        for ($number = 1; $number <= $users; $number++) {
+            User::factory()
+                ->create([
+                    'name' => Str::headline($role).' '.$number,
+                    'email' => $role.$number.'@'.self::DOMAIN,
+                ])
+                ->assignRole($role);
+        }
     }
 }
